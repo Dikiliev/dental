@@ -1,0 +1,91 @@
+
+
+.workers{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    width: 100%;
+    margin: auto;
+}
+
+.worker-card{
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    padding: 20px;
+    background-color: var(--background-color-1);
+
+    border-radius: var(--base-border-radius);
+}
+.worker{
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.worker-info{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.worker img{
+    width: 60px;
+    height: 60px;
+
+    object-fit: cover;
+    border-radius: 60px;
+}
+
+.title{
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.work-title{
+    font-size: 18px;
+    color: var(--color-1)
+}
+
+.description{
+    font-size: 14px;
+    color: var(--color-transparent)
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 20px;
+}
+.button{
+    width: 30%;
+    padding: 5px;
+    align-self: flex-end;
+    border: 1px solid var(--color-hover-1);
+}
+
+.button:hover{
+    border: 1px solid var(--color-1);
+}
+
+.button.transparent{
+    background-color: transparent;
+    border: 1px solid var(--color-hover-1);
+    color: var(--color-hover-1);
+}
+
+.button.transparent:hover{
+    background-color: var(--color-hover-1);
+    color: var(--background-color-1);
+}

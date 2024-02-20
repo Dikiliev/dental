@@ -1,0 +1,4 @@
+:root {
+    --icon-like: url('{% static "images/like-inactive.png" %}');
+    --icon-like-active: url('{% static "images/like-active.png" %}');
+}

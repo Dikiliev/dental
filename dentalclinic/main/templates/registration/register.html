@@ -1,0 +1,50 @@
+{% extends  "base.html" %}
+
+{% block content  %}
+
+<div class="enter-5"></div>
+<div class="container">
+    <h1>Регистрация</h1>
+
+    <form class="" action="" method="post">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" name="username" value="{{ username }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="phone">Номер телефона:</label>
+            <input type="tel" id="phone" name="phone" value="{{ phone }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="category">Категория:</label>
+            <select name="category" id="category" required>
+                <option value="1">Покупатель</option>
+                <option value="2">Владелец заведения</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="address">Домашний адрес:</label>
+            <input type="text" id="address" name="address" value="{{ address }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <p class="error">{{ error }}</p>
+        <br>
+        <button class="gradient-button" type="submit"><a>Зарегистрироваться</a></button>
+        <a href="/login">Уже зарегестрированы? Войти</a>
+
+    </form>
+</div>
+
+
+{% endblock %}
+
