@@ -2,12 +2,13 @@ import json
 import random
 
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.hashers import make_password
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 
-from .models import User
+from .models import User, Work
 
 DEFAULT_TITLE = 'DjangoDev'
 
@@ -19,7 +20,7 @@ def home(request: HttpRequest):
 
 def catalog(request: HttpRequest):
     data = create_base_data('Каталог')
-    data['brands'] = []
+    data['workers'] = User.objects.filter(role=2)
 
     return render(request, 'catalog.html', data)
 
@@ -27,6 +28,41 @@ def catalog(request: HttpRequest):
 def show_shorts(request: HttpRequest):
     data = create_base_data('Shorts')
     return render(request, 'shorts.html', data)
+
+
+def test_method(request: HttpRequest):
+    users_data = [
+        {'username': 'natalia', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Наталья',
+         'last_name': 'Иванова', 'phone_number': '+7 967 949 06 09', 'email': 'natalia@example.com'},
+        {'username': 'ivan', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Иван',
+         'last_name': 'Петров', 'phone_number': '+7 999 123 45 67', 'email': 'ivan@example.com'},
+        {'username': 'elena', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Елена',
+         'last_name': 'Сидорова', 'phone_number': '+7 912 345 67 89', 'email': 'elena@example.com'},
+        {'username': 'alexey', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Алексей',
+         'last_name': 'Козлов', 'phone_number': '+7 999 876 54 32', 'email': 'alexey@example.com'},
+        {'username': 'marina', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Марина',
+         'last_name': 'Смирнова', 'phone_number': '+7 987 654 32 10', 'email': 'marina@example.com'},
+        {'username': 'sergey', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Сергей',
+         'last_name': 'Иванов', 'phone_number': '+7 911 987 65 43', 'email': 'sergey@example.com'},
+        {'username': 'anna', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Анна',
+         'last_name': 'Федорова', 'phone_number': '+7 903 210 98 76', 'email': 'anna@example.com'},
+        {'username': 'pavel', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Павел',
+         'last_name': 'Морозов', 'phone_number': '+7 922 345 67 89', 'email': 'pavel@example.com'},
+        {'username': 'olga', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Ольга',
+         'last_name': 'Васильева', 'phone_number': '+7 925 678 90 12', 'email': 'olga@example.com'},
+        {'username': 'dmitry', 'password': make_password('44444444'), 'role': 2, 'first_name': 'Дмитрий',
+         'last_name': 'Семенов', 'phone_number': '+7 916 543 21 09', 'email': 'dmitry@example.com'},
+    ]
+
+    for data in users_data:
+        user = User.objects.create(**data)
+        Work.objects.create(
+            user=user,
+            title='Стоматолог-ортопед',
+            description='Работа с детьми и взрослыми пациентами. Протезирование зубов и протезирование на имплантах. Диагностика и составление полного плана комплексного стоматологического лечения.',
+            address='г. Москва, ул. Ленина 10'
+        )
+    return JsonResponse({"message": "Выполнено"})
 
 
 # @csrf_exempt

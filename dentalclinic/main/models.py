@@ -3,21 +3,20 @@ import random
 
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
 class User(AbstractUser):
 
-    # ROLE_ENUM = (
-    #     (1, 'Пользователь'),
-    #     (2, 'Работник'),
-    # )
-    #
-    # role = models.IntegerField(
-    #     choices=ROLE_ENUM,
-    #     default=1
-    # )
+    ROLE_ENUM = (
+        (1, 'Пользователь'),
+        (2, 'Врач'),
+    )
+
+    role = models.IntegerField(
+        choices=ROLE_ENUM,
+        default=1
+    )
 
     avatar = models.ImageField(blank=True, verbose_name='Аватарка')
     phone_number = models.CharField(max_length=25, blank=True, verbose_name='Номер телефона')
