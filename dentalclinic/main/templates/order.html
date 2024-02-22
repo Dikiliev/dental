@@ -11,9 +11,7 @@
 
 <br><br>
 <div class="container">
-    <div class="workers">
-
-        {% for worker in workers %}
+    <div class="">
 
         <a class="worker-card" href="/brand/{{brand.id}}">
             <div class="worker">
@@ -25,19 +23,7 @@
                     <span class="description">{{worker.work.description}}</span>
                 </div>
             </div>
-
-            <span>Ближайшие свободные записи:</span>
-            <div class="buttons">
-                <button class="button transparent">12:00</button>
-                <button class="button transparent">13:00</button>
-                <button class="button transparent">15:00</button>
-                <button class="button transparent">17:00</button>
-                <button class="button transparent">Другое время</button>
-                <button class="button">Подробнее</button>
-            </div>
         </a>
-
-        {% endfor%}
 
     </div>
 </div>

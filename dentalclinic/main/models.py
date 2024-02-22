@@ -47,3 +47,22 @@ class Work(models.Model):
     description = models.TextField(verbose_name='Краткое портфолио')
 
     address = models.CharField(max_length=150, blank=True, verbose_name='Адрес')
+
+
+class Service(models.Model):
+    title = models.CharField(max_length=150, verbose_name='Профессия')
+
+    def __str__(self):
+        return self.title
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order', verbose_name='Заказчик')
+    
+    def __str__(self):
+        Заказ
+
+
+class OrderItem(models.Model):
+    service = models.OneToOneField(Service, on_delete=models.CASCADE, verbose_name='Услуга')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', verbose_name='Заказ')
