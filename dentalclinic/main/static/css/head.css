@@ -1,0 +1,47 @@
+
+.head{
+    width: 100vw;
+    height: 70px;
+    background-color: var(--background-header);
+    box-shadow: 0 1px var(--shadow-blur) var(--shadow);
+
+    font-size: 24px;
+}
+
+.head-content{
+    margin: auto;
+    max-width: 600px;
+    height: 100%;
+}
+
+.profile-text{
+    font-weight: 700;
+}
+
+.error{
+    color: var(--error-color);
+}
+
+.logo{
+    font-weight: 700;
+    font-size: 32px;
+}
+.text-logo-part-1{
+    color: var(--color-1);
+}
+.text-logo-part-2{
+    color: var(--color-hover-1);
+}
+
+.nav-menu{
+    width: auto;
+}
+
+.nav-item{
+    font-size: 16px;
+    margin: auto 20px;
+    text-decoration: none;
+}
+.nav-item:hover{
+    color: var(--color-hover-1);
+}

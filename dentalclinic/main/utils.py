@@ -37,13 +37,3 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
         result = get_free_times_in_day(dt.date(), get_appointments_in(dt.date()), start_time, end_time)
 
     return result
-
-
-a = [
-    (datetime(2024, 2, 26, 12, 00), 60),
-    (datetime(2024, 2, 26, 13, 00), 120),
-    (datetime(2024, 2, 26, 16, 30), 90),
-    (datetime(2024, 2, 27, 13, 00), 60),
-]
-
-get_free_times(a, time(0, 0), time(18, 00))

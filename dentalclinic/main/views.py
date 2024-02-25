@@ -1,6 +1,8 @@
+import datetime
 import json
 import random
 
+from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import make_password
 from django.http import HttpRequest, JsonResponse, HttpResponse
@@ -8,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 
-from .models import User, Work
+from .models import User, Profile, Appointment
 
 DEFAULT_TITLE = 'DjangoDev'
 
@@ -25,6 +27,60 @@ def catalog(request: HttpRequest):
     return render(request, 'catalog.html', data)
 
 
+def select_specialist(request: HttpRequest, specialist_id: int, service_id: int, date: str):
+    data = create_base_data()
+    data['workers'] = User.objects.filter(role=2)
+
+    return render(request, 'specialists.html', data)
+
+
+def select_service(request: HttpRequest, specialist_id: int, service_id: int, date: str):
+    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {date}')
+
+
+def select_date(request: HttpRequest, specialist_id: int, service_id: int, date: str):
+    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {date}')
+
+
+def completion_appointment(request: HttpRequest, specialist_id: int, service_id: int, date: str):
+    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {date}')
+
+
+def get_free_times(request: HttpRequest, specialist_id: int, day: int = -1):
+    appointments = Appointment.objects.all()
+
+    now = datetime.datetime.now()
+    current_datetime = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0)
+    if now.minute >= 30:
+        current_datetime += datetime.timedelta(hours=1)
+    else:
+        current_datetime += datetime.timedelta(minutes=30)
+
+    result = []
+
+    for appointment in appointments:
+        appointment.date_time = timezone.make_naive(appointment.date_time)
+
+        if appointment.date_time + datetime.timedelta(minutes=appointment.get_duration()) < current_datetime:
+            continue
+
+        if appointment.date_time < current_datetime:
+            current_datetime = appointment.date_time + datetime.timedelta(minutes=appointment.get_duration())
+            continue
+
+        while current_datetime + datetime.timedelta(minutes=30) <= appointment.date_time:
+            result.append(current_datetime)
+            current_datetime += datetime.timedelta(minutes=30)
+
+        current_datetime += datetime.timedelta(minutes=appointment.get_duration())
+
+    while len(result) < 10:
+        result.append(current_datetime)
+        current_datetime += datetime.timedelta(minutes=30)
+
+    return HttpResponse(f'message: Success, result: {[str(item.time()) for item in result]}')
+
+
 def order(request: HttpRequest):
     data = create_base_data('Заказ')
 
@@ -34,6 +90,10 @@ def order(request: HttpRequest):
 def show_shorts(request: HttpRequest):
     data = create_base_data('Shorts')
     return render(request, 'shorts.html', data)
+
+
+def test_page(request: HttpRequest, num=12):
+    return HttpResponse(f't: {num}')
 
 
 def test_method(request: HttpRequest):
@@ -111,9 +171,9 @@ def test_method(request: HttpRequest):
         user.save()
 
         # Создаем информацию о работе стоматолога
-        work = Work(
+        work = Profile(
             user=user,
-            title=profession,
+            specialization=profession,
             description=description,
             address=address
         )

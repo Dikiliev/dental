@@ -1,0 +1,116 @@
+body{
+    background-color: var(--background-color-2);
+    min-height: 100vh;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: auto;
+    padding: 20px;
+
+    max-width: 600px;
+    min-height: 90vh;
+}
+
+h1{
+    font-weight: 600;
+    color: var(--color-2);
+}
+
+hr{
+    border: none;
+    border-top: 1px dashed var(--color-transparent);
+}
+
+a{
+    color: var(--color-1);
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 600px;
+    margin: auto;
+}
+
+.horizontal-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form{
+    box-shadow: 0 1px var(--shadow-blur) var(--shadow);
+    padding: 50px 50px;
+    margin: 20px auto;
+
+    width: 300px;
+    max-width: 80vw;
+
+    background-color: white;
+
+    border-radius: var(--base-border-radius);
+}
+
+option{
+    color: var(--color-1)
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+}
+.input-group input, .input-group textarea, .input-group select{
+    outline: none;
+    color: var(--color-1);
+    background-color: var(--background-color-2);
+    border-radius: calc(var(--base-border-radius) / 2);
+    border: 0px solid var(--color-1);
+
+    padding: 7px 7px;
+    font-size: 16px;
+}
+.input-group input:hover, .input-group textarea:hover{
+    border-color: var(--color-2);
+    box-shadow: 0 0 5px var(--light-color);
+}
+.input-group label{
+    margin-bottom: 5px;
+    color: var(--color-1);
+}
+
+form a{
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+form a:hover{
+    color: var(--color-hover-1);
+}
+
+.button{
+    width: 100%;
+    padding: 10px;
+    outline:none;
+    font-size: 20px;
+
+    border-radius: calc(var(--base-border-radius) / 2);
+    border: none;
+
+    background-color: var(--color-hover-1);
+    color: var(--background-color-1);
+}
+
+.button:hover{
+    background-color: var(--color-1);
+    cursor: pointer;
+}

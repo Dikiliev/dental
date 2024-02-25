@@ -3,6 +3,7 @@ import random
 
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -40,29 +41,77 @@ class User(AbstractUser):
         return self.avatar.url
 
 
-class Work(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name='Работник')
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    specialization = models.CharField(max_length=100, blank=True)
+    contact_info = models.TextField(blank=True)
 
-    title = models.CharField(max_length=150, verbose_name='Профессия')
     description = models.TextField(verbose_name='Краткое портфолио')
-
     address = models.CharField(max_length=150, blank=True, verbose_name='Адрес')
 
 
 class Service(models.Model):
-    title = models.CharField(max_length=150, verbose_name='Профессия')
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    duration = models.IntegerField(default=60)
+    price = models.IntegerField()
 
     def __str__(self):
         return self.title
 
 
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order', verbose_name='Заказчик')
-    
+class Appointment(models.Model):
+    ORDER_STATUS_CHOICES = (
+        (1, 'Создана'),
+        (2, 'Принято'),
+        (3, 'В процессе'),
+        (4, 'Выполнен'),
+        (5, 'Отменен'),
+    )
+
+    order_number = models.PositiveIntegerField(unique=True,
+                                               validators=[MinValueValidator(10000), MaxValueValidator(99999), ],
+                                               verbose_name='Номер заказа')
+
+    user = models.ForeignKey(User, related_name='appointments', on_delete=models.CASCADE)
+    dentist = models.ForeignKey(User, related_name='dentist_appointments', on_delete=models.CASCADE)
+    order_status = models.IntegerField(default=1, choices=ORDER_STATUS_CHOICES, verbose_name='Статус')
+    date_time = models.DateTimeField()
+
     def __str__(self):
-        Заказ
+        return f'Заказ #{self.order_number}; {[a.service.title for a in self.appointments.all()]} ({self.get_duration()}m)'
+
+    def generate_order_number(self):
+        while True:
+            order_number = random.randint(10000, 99999)
+            if not Appointment.objects.filter(order_number=order_number).exists():
+                return order_number
+
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            self.order_number = self.generate_order_number()
+        super().save(*args, **kwargs)
+
+    def get_duration(self):
+        total = 0
+
+        for appointment in self.appointments.all():
+            total += appointment.service.duration
+
+        return total
 
 
-class OrderItem(models.Model):
-    service = models.OneToOneField(Service, on_delete=models.CASCADE, verbose_name='Услуга')
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', verbose_name='Заказ')
+class AppointmentService(models.Model):
+    appointment = models.ForeignKey(Appointment, related_name='appointments', on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.service} x{self.quantity} из {self.appointment}'
+
+
+class Review(models.Model):
+    dentist = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='written_reviews', on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    content = models.TextField()
