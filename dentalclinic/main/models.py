@@ -1,5 +1,6 @@
 import datetime
 import random
+from . import utils
 
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractUser
@@ -40,6 +41,29 @@ class User(AbstractUser):
 
         return self.avatar.url
 
+    def get_free_times(self):
+        if self.role == 1:
+            raise Exception('Попытка получения свободного времени у обычного пользователя')
+
+        profile = self.profile
+        if profile is None:
+            raise Exception('У специалиста отсутвует специализация (Profile)')
+
+        appointments = self.dentist_appointments.all()
+        appointments = [(appointment.date_time, appointment.get_duration()) for appointment in appointments]
+
+        result = utils.get_free_times(appointments, profile.start_time, profile.end_time)[:6]
+
+        result = {
+            'date_str': result[0],
+            'times': [{
+                'datetime': result[1][i],
+                'time_str': result[1][i].strftime("%H:%M")
+            } for i in range(min(len(result[1]), 6))],
+        }
+
+        return result
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -48,6 +72,13 @@ class Profile(models.Model):
 
     description = models.TextField(verbose_name='Краткое портфолио')
     address = models.CharField(max_length=150, blank=True, verbose_name='Адрес')
+
+    start_time = models.TimeField(default=datetime.time(9, 0))
+    end_time = models.TimeField(default=datetime.time(18, 0))
+
+
+    def __str__(self):
+        return f'Профиль {self.user}'
 
 
 class Service(models.Model):
@@ -73,7 +104,7 @@ class Appointment(models.Model):
                                                validators=[MinValueValidator(10000), MaxValueValidator(99999), ],
                                                verbose_name='Номер заказа')
 
-    user = models.ForeignKey(User, related_name='appointments', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_appointments', on_delete=models.CASCADE)
     dentist = models.ForeignKey(User, related_name='dentist_appointments', on_delete=models.CASCADE)
     order_status = models.IntegerField(default=1, choices=ORDER_STATUS_CHOICES, verbose_name='Статус')
     date_time = models.DateTimeField()

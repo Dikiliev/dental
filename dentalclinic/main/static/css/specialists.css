@@ -10,7 +10,9 @@
 }
 
 .worker-card{
-    width: 100%;
+    --padding: 20px;
+
+    width: calc(100% - (var(--padding) * 2) - 4px);
     height: auto;
 
     display: flex;
@@ -18,7 +20,7 @@
 
     gap: 10px;
 
-    padding: 20px;
+    padding: var(--padding);
     background-color: var(--background-color-1);
 
     border: 2px solid transparent;
@@ -29,10 +31,6 @@
     border-color: var(--color-hover-1);
 }
 
-.worker-card:hover{
-    cursor: pointer;
-}
-
 .worker{
     width: 100%;
     height: auto;
@@ -40,6 +38,11 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+
+.worker:hover{
+    cursor: pointer;
 }
 
 .worker-info{

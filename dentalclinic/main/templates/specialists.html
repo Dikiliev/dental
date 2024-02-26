@@ -27,12 +27,13 @@
                 </div>
             </div>
 
-            <span>Ближайшие свободные записи:</span>
+            <span>Ближайшее время для записи {{worker.get_free_times.date_str}}:</span>
             <div class="buttons">
-                <button class="time-button">12:00</button>
-                <button class="time-button">13:00</button>
-                <button class="time-button">15:00</button>
-                <button class="time-button">17:00</button>
+
+
+                {% for time in worker.get_free_times.times %}
+                <button  name="{{time.datetime}}" class="time-button">{{time.time_str}}</button>
+                {% endfor%}
             </div>
         </div>
 
