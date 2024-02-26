@@ -11,7 +11,7 @@ main{
     margin: auto;
     padding: 20px;
 
-    max-width: 600px;
+    max-width: var(--max-width);
     min-height: 90vh;
 }
 
@@ -35,7 +35,7 @@ a{
     justify-content: space-between;
     align-items: center;
 
-    max-width: 600px;
+    max-width: var(--max-width);
     margin: auto;
 }
 
@@ -113,4 +113,24 @@ form a:hover{
 .button:hover{
     background-color: var(--color-1);
     cursor: pointer;
+}
+
+.fixed-bottom{
+    position: fixed;
+    bottom: 24px;
+
+    z-index: 9999;
+    margin: 0 auto;
+    opacity: 1;
+    width: calc(var(--max-width) - 32px);
+}
+
+.fixed-bottom button{
+    box-shadow: 0 1px var(--shadow-blur) rgba(0, 68, 48, 0.2);
+}
+
+.disabled{
+    display: none;
+    opacity: 0;
+    transition: all 1s linear;;
 }

@@ -12,7 +12,7 @@ from django.core.serializers import serialize
 
 from .models import User, Profile, Appointment
 
-DEFAULT_TITLE = 'DjangoDev'
+DEFAULT_TITLE = 'DentalClinic'
 
 
 def home(request: HttpRequest):

@@ -2,10 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root{
     /*--base-font: Montserrat;*/
     /*--base-font: Nunito;*/
-    --base-font: "Golos Text";
+    --base-font: "Roboto Condensed";
+    --logo-font: "Roboto Condensed";
 
     --background-color-1: #ffffff;
     --background-color-2: #f0f2f5;
@@ -30,6 +33,8 @@
     --base-border-radius: 10px;
 
     --base-transition: all 0.2s ease-in;
+
+    --max-width: 600px;
 }
 
 *{

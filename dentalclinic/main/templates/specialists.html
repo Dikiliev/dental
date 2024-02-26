@@ -30,7 +30,6 @@
             <span>Ближайшее время для записи {{worker.get_free_times.date_str}}:</span>
             <div class="buttons">
 
-
                 {% for time in worker.get_free_times.times %}
                 <button  name="{{time.datetime}}" class="time-button">{{time.time_str}}</button>
                 {% endfor%}
@@ -39,6 +38,10 @@
 
         {% endfor%}
 
+    </div>
+
+    <div id="bottom-menu" class="fixed-bottom disabled">
+        <button class="button">Выбрать услугу</button>
     </div>
 </div>
 

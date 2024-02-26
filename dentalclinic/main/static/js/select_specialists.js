@@ -22,6 +22,7 @@ function init(){
         }
     }
 
+    refreshNextButton();
 }
 
 function selectSpecialist(id, force=false){
@@ -39,6 +40,8 @@ function selectSpecialist(id, force=false){
     if (selectElement){
         selectElement.classList.toggle('selected', true);
     }
+
+    refreshNextButton();
 }
 
 function selectTime(specialist_id, datetime){
@@ -62,6 +65,8 @@ function selectTime(specialist_id, datetime){
             timeButton.classList.toggle('selected', true)
         }
     }
+
+    refreshNextButton();
 }
 
 function unselectAll(){
@@ -76,6 +81,7 @@ function unselectAll(){
     }
 }
 
-function enableNextButton(value){
-
+function refreshNextButton(){
+    const bottomMenu = document.getElementById('bottom-menu')
+    bottomMenu.classList.toggle('disabled', selectedSpecialistId === -1);
 }

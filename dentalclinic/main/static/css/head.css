@@ -23,11 +23,17 @@
 }
 
 .logo{
+
+}
+.text-logo-part-1, .text-logo-part-2{
+    font-family: var(--logo-font);
     font-weight: 700;
     font-size: 32px;
 }
+
 .text-logo-part-1{
     color: var(--color-1);
+
 }
 .text-logo-part-2{
     color: var(--color-hover-1);
