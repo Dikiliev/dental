@@ -1,0 +1,29 @@
+{% extends  "base.html" %}
+
+{% load static %}
+
+{% block head  %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/specialists.css' %}">
+<script type="text/javascript" src="{% static 'js/select_specialists.js' %}" defer></script>
+{% endblock %}
+
+{% block content  %}
+
+
+<br><br>
+<div class="container">
+    <div>{{worker.username}}</div>
+    <div class="services">
+        <div class="service-card">
+
+        </div>
+    </div>
+
+    <div id="bottom-menu" class="fixed-bottom disabled">
+        <button class="button">Выбрать услугу</button>
+    </div>
+</div>
+
+
+{% endblock %}
+

@@ -35,7 +35,11 @@ def select_specialist(request: HttpRequest, specialist_id: int, service_id: int,
 
 
 def select_service(request: HttpRequest, specialist_id: int, service_id: int, date: str):
-    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {date}')
+    data = create_base_data()
+    print(specialist_id)
+    data['worker'] = User.objects.filter(id=specialist_id)[0]
+
+    return render(request, 'services.html', data)
 
 
 def select_date(request: HttpRequest, specialist_id: int, service_id: int, date: str):

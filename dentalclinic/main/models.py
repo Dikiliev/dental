@@ -76,7 +76,6 @@ class Profile(models.Model):
     start_time = models.TimeField(default=datetime.time(9, 0))
     end_time = models.TimeField(default=datetime.time(18, 0))
 
-
     def __str__(self):
         return f'Профиль {self.user}'
 
