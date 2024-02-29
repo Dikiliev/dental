@@ -73,6 +73,8 @@ class Profile(models.Model):
     description = models.TextField(verbose_name='Краткое портфолио')
     address = models.CharField(max_length=150, blank=True, verbose_name='Адрес')
 
+    services = models.ManyToManyField('Service', related_name='profiles', blank=True, verbose_name='Услуги')
+
     start_time = models.TimeField(default=datetime.time(9, 0))
     end_time = models.TimeField(default=datetime.time(18, 0))
 

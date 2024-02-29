@@ -4,11 +4,10 @@ const timeButtonPrefix = 'time-button-'
 let selectedSpecialistId = -1;
 let selectedTime = null;
 
-init();
+initSpecialist();
 
 
-
-function init(){
+function initSpecialist(){
     for (const card of workerCards) {
         card.getElementsByClassName('worker')[0].addEventListener('click', () => {
             selectSpecialist(card.id);

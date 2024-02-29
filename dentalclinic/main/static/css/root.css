@@ -11,14 +11,14 @@
     --logo-font: "Roboto Condensed";
 
     --background-color-1: #ffffff;
-    --background-color-2: #f0f2f5;
+    --background-color-2: #EEEEEE;
     --background-header: var(--background-color-1);
 
-    --color-1: #232D3F;
-    --color-2: #0F0F0F;
+    --color-1: #222831;
+    --color-2: #393E46;
     --color-3: #445069;
 
-    --color-hover-1: #22A39F;
+    --color-hover-1: #00AF91;
     --color-hover-2: #FF894C;
 
     --color-transparent: rgba(0, 0, 0, 0.5);
@@ -40,6 +40,8 @@
 *{
     margin: 0;
     padding: 0;
+
+    box-sizing: border-box;
 
     font-family: var(--base-font);
     color: var(--color-2);

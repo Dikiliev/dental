@@ -1,8 +1,95 @@
 
 .services{
-
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .service-card{
+    width: 100%;
+    min-height: 50px;
+    background-color: var(--background-color-1);
+    overflow: hidden;
+    padding: 15px;
 
+    border-radius: var(--base-border-radius);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-card:hover{
+    cursor: pointer;
+}
+
+.service-card.selected{
+
+}
+
+.service-right{
+    height: 100%;
+}
+
+.service-info{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-title{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.service-duration{
+    font-size: 16px;
+    color: var(--color-transparent)
+}
+
+.service-price{
+    font-size: 18px;
+    color: var(--color-hover-1)
+}
+
+.select-button{
+    font-family: Arial, serif;
+    width: 40px;
+    height: 40px;
+
+    background-color: var(--background-color-2);
+    border-radius: 100px;
+
+    color: var(--color-1);
+    font-size: 24px;
+
+    border: none;
+    outline: none;
+    padding: 7px;
+}
+
+.select-button:before{
+    content: '+';
+}
+
+.service-card.selected .select-button{
+    content: '';
+    background-color: var(--color-hover-1);
+}
+
+.service-card.selected .select-button:before{
+    content: '';
+}
+
+.check-mark-img{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.service-card.selected .check-mark-img{
+    display: block;
 }

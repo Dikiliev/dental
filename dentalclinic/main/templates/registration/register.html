@@ -2,7 +2,9 @@
 
 {% block content  %}
 
-<div class="enter-5"></div>
+<br>
+<br>
+
 <div class="container">
     <h1>Регистрация</h1>
 
@@ -15,6 +17,16 @@
         </div>
 
         <div class="input-group">
+            <label for="first_name">Имя:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ first_name }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="last_name">Фамилия:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ last_name }}" required>
+        </div>
+
+        <div class="input-group">
             <label for="phone">Номер телефона:</label>
             <input type="tel" id="phone" name="phone" value="{{ phone }}" required>
         </div>
@@ -22,14 +34,9 @@
         <div class="input-group">
             <label for="category">Категория:</label>
             <select name="category" id="category" required>
-                <option value="1">Покупатель</option>
-                <option value="2">Владелец заведения</option>
+                <option value="1">Пользователь</option>
+                <option value="2">Доктор</option>
             </select>
-        </div>
-
-        <div class="input-group">
-            <label for="address">Домашний адрес:</label>
-            <input type="text" id="address" name="address" value="{{ address }}" required>
         </div>
 
         <div class="input-group">
@@ -39,7 +46,7 @@
 
         <p class="error">{{ error }}</p>
         <br>
-        <button class="gradient-button" type="submit"><a>Зарегистрироваться</a></button>
+        <button class="button" type="submit">Зарегистрироваться</button>
         <a href="/login">Уже зарегестрированы? Войти</a>
 
     </form>

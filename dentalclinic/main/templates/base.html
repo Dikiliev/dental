@@ -15,6 +15,16 @@
 
     {% endblock %}
 
+    <style>
+        {% load static %}
+
+        :root {
+            --icon-like: url('{% static "images/like-inactive.png" %}');
+            --icon-like-active: url('{% static "images/like-active.png" %}');
+            --check-mark: url('{% static "images/check_mark_icon.svg" %}');
+        }
+    </style>
+
 </head>
 <body>
 
