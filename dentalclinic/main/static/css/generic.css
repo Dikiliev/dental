@@ -125,6 +125,16 @@ form a:hover{
     width: calc(var(--max-width) - 32px);
 }
 
+.fixed-bottom.panel{
+    padding: 10px;
+    background-color: var(--background-color-1);
+    border-radius: var(--base-border-radius);
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
 .fixed-bottom button{
     box-shadow: 0 1px var(--shadow-blur) rgba(0, 68, 48, 0.2);
 }

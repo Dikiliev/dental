@@ -4,7 +4,6 @@
 
 {% block head  %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/services.css' %}">
-<script type="text/javascript" src="{% static 'js/select_service.js' %}" defer></script>
 {% endblock %}
 
 {% block content  %}
@@ -32,11 +31,27 @@
         {% endfor %}
     </div>
 
-    <div id="bottom-menu" class="fixed-bottom disabled">
-        <button class="button">Выбрать услугу</button>
+    <div id="bottom-menu" class="fixed-bottom panel disabled">
+        <span class="service-title">Сумма: 3000</span>
+        <button class="button">Выбрать время</button>
     </div>
 </div>
 
+<script type="text/javascript" src="{% static 'js/select_service.js' %}" defer>
+    let services = new Map();
+    let service;
+    
+    {% for service in worker.profile.services.all %}
+
+    service = new Map();
+    service.set('title', '{{service.title}}');
+    service.set('price', '{{service.price}}');
+    services.set('{{service.id}}', service);
+
+    {% endfor %}
+
+    initService();
+</script>
 
 {% endblock %}
 

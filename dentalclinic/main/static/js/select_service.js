@@ -2,9 +2,11 @@ const serviceCards = document.getElementsByClassName('service-card');
 
 let selectedServiceIds = [];
 
-initService();
+
 
 function initService(){
+    console.log(services);
+
     for (const card of serviceCards) {
         card.addEventListener('click', () => {
             selectService(card.id);
