@@ -1,21 +1,19 @@
 const serviceCards = document.getElementsByClassName('service-card');
 const serviceIdPrefix = 'service-card-';
-let selectedServiceIds = [];
-
 function initService(){
-    console.log(services);
-
     for (const card of serviceCards) {
         card.addEventListener('click', () => {
-            selectService(card.id);
+            selectService(+card.id.replace(serviceIdPrefix, ''));
         });
+
+        card.classList.toggle('selected', selectedServiceIds.includes(+card.id.replace(serviceIdPrefix, '')))
     }
 
     refreshNextButton();
 }
 
 function selectService(id){
-    const selectElement = document.getElementById(id);
+    const selectElement = document.getElementById(serviceIdPrefix + id);
 
     if (selectedServiceIds.includes(id)){
         selectedServiceIds = selectedServiceIds.filter(item => item !== id)
@@ -26,6 +24,8 @@ function selectService(id){
 
     selectElement.classList.toggle('selected', selectedServiceIds.includes(id))
     refreshNextButton();
+
+    console.log(selectedServiceIds);
 }
 
 function refreshNextButton(){
@@ -38,7 +38,7 @@ function refreshNextButton(){
         let totalDuration = 0;
 
         for (const selectedId of selectedServiceIds){
-            const ser = services[selectedId.replace(serviceIdPrefix, '')]
+            const ser = services[selectedId]
             totalDuration += ser.duration;
             total += ser.price;
 

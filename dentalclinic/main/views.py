@@ -10,7 +10,8 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 
-from .models import User, Profile, Appointment
+from .models import User, Profile, Appointment, Service
+from .converters import IntListConverter, DateTimeConverter
 
 DEFAULT_TITLE = 'DentalClinic'
 
@@ -27,23 +28,34 @@ def catalog(request: HttpRequest):
     return render(request, 'catalog.html', data)
 
 
-def select_specialist(request: HttpRequest, specialist_id: int, service_id: int, date: str):
+def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], date: str):
     data = create_base_data()
+    data['specialist_id'] = specialist_id
+    data['service_id'] = service_ids
+    data['date'] = date
+
     data['workers'] = User.objects.filter(role=2)
 
     return render(request, 'specialists.html', data)
 
 
-def select_service(request: HttpRequest, specialist_id: int, service_id: int, date: str):
+def select_service(request: HttpRequest, specialist_id: str, service_ids: [int], date: str):
     data = create_base_data()
-    print(specialist_id)
-    data['worker'] = User.objects.filter(id=specialist_id)[0]
+    data['specialist_id'] = specialist_id
+    data['service_id'] = service_ids
+    data['date'] = date
+
+    workers = User.objects.filter(id=specialist_id)
+
+    worker = workers[0] if workers else None
+    profile = worker.profile if worker else None
+    data['services'] = profile.services.all() if profile else Service.objects.all()
 
     return render(request, 'services.html', data)
 
 
-def select_date(request: HttpRequest, specialist_id: int, service_id: int, date: str):
-    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {date}')
+def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], date: str):
+    return HttpResponse(f'specialist: {specialist_id}, service: {service_ids}, date: {date}')
 
 
 def completion_appointment(request: HttpRequest, specialist_id: int, service_id: int, date: str):

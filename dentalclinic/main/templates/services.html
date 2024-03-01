@@ -1,42 +1,42 @@
-{% extends  "base.html" %}
+{% extends  "appointmenting.html" %}
 
 {% load static %}
 
-{% block head  %}
+{% block twostyles  %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/services.css' %}">
+
+<script>
+    const current_page = 1;
+</script>
 {% endblock %}
 
-{% block content  %}
+{% block container  %}
 
 
-<br><br>
-<div class="container">
-    <h1>Выбрать услуги</h1>
-    <br>
-    <div class="services">
+<h1>Выбрать услуги</h1>
+<br>
+<div class="services">
 
-        {% for service in worker.profile.services.all %}
-        <div id="service-card-{{service.id}}" class="service-card">
-            <div class="service-info">
-                <span class="service-title">{{service.title}}&nbsp;&nbsp;<span class="service-duration">{{service.duration}} мин.</span></span>
-                <span class="service-price">{{service.price}} ₽</span>
-            </div>
-            <div class="service-right">
-                <button class="select-button">
-                    <img class="check-mark-img" src="{% static '/images/check_mark_icon.svg' %}">
-                </button>
-            </div>
+    {% for service in services %}
+    <div id="service-card-{{service.id}}" class="service-card">
+        <div class="service-info">
+            <span class="service-title">{{service.title}}&nbsp;&nbsp;<span class="service-duration">{{service.duration}} мин.</span></span>
+            <span class="service-price">{{service.price}} ₽</span>
         </div>
-
-        {% endfor %}
+        <div class="service-right">
+            <button class="select-button">
+                <img class="check-mark-img" src="{% static '/images/check_mark_icon.svg' %}">
+            </button>
+        </div>
     </div>
 
-    <div id="bottom-menu" class="fixed-bottom panel disabled">
-        <span class="service-title">Сумма: 3000</span>
-        <button class="button">Выбрать время</button>
-    </div>
+    {% endfor %}
 </div>
 
+<div id="bottom-menu" class="fixed-bottom panel disabled">
+    <span class="service-title">Сумма: 3000</span>
+    <button class="button">Выбрать время</button>
+</div>
 <script type="text/javascript" src="{% static 'js/select_service.js' %}"></script>
 
 <script>

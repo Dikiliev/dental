@@ -1,7 +1,6 @@
 const workerCards = document.getElementsByClassName('worker-card');
 const cardPrefix = 'worker-card-';
 const timeButtonPrefix = 'time-button-'
-let selectedSpecialistId = -1;
 let selectedTime = null;
 
 initSpecialist();
@@ -10,15 +9,21 @@ initSpecialist();
 function initSpecialist(){
     for (const card of workerCards) {
         card.getElementsByClassName('worker')[0].addEventListener('click', () => {
-            selectSpecialist(card.id);
+            selectSpecialist(card.id.replace(cardPrefix, ''));
         });
 
         const timeButtons = card.getElementsByClassName('time-button')
         for (const timeButton of timeButtons){
             timeButton.addEventListener('click', () => {
-                selectTime(card.id, timeButton.name)
+                selectTime(card.id.replace(cardPrefix, ''), timeButton.name)
             })
         }
+    }
+
+    const selectElement = document.getElementById(cardPrefix + selectedSpecialistId);
+
+    if (selectElement){
+        selectElement.classList.toggle('selected', true);
     }
 
     refreshNextButton();
@@ -32,9 +37,9 @@ function selectSpecialist(id, force=false){
         selectedSpecialistId = id;
     }
 
-
+    console.log(selectedSpecialistId);
     unselectAll();
-    const selectElement = document.getElementById(selectedSpecialistId);
+    const selectElement = document.getElementById(cardPrefix + selectedSpecialistId);
 
     if (selectElement){
         selectElement.classList.toggle('selected', true);
@@ -54,7 +59,7 @@ function selectTime(specialist_id, datetime){
     }
 
     unselectAll();
-    const selectElement = document.getElementById(selectedSpecialistId);
+    const selectElement = document.getElementById(cardPrefix + selectedSpecialistId);
     if (selectElement){
         selectElement.classList.toggle('selected', true);
 

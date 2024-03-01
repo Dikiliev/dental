@@ -1,0 +1,43 @@
+{% extends  "base.html" %}
+
+{% load static %}
+
+{% block head  %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/appointmenting.css' %}">
+
+<script>
+    let selectedSpecialistId = {{specialist_id}};
+    let selectedServiceIds = {{service_id}};
+    let selectedDate = {{date}};
+
+    if (selectedServiceIds && selectedServiceIds[0] === -1){
+        selectedServiceIds = [];
+    }
+</script>
+
+{% block twostyles  %}
+
+{% endblock %}
+
+{% endblock %}
+
+{% block content  %}
+
+<br>
+<div class="switch-buttons">
+    <button id="specialist-button" class="switch-button">Выбрать врача</button>
+    <button id="service-button" class="switch-button">Выбрать услугу</button>
+    <button id="date-button" class="switch-button">Выбрать время</button>
+</div>
+
+<script type="text/javascript" src="{% static 'js/appointmenting.js' %}" defer></script>
+
+<br><br>
+<div class="container">
+    {% block container  %}
+
+    {% endblock %}
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,22 @@
+.switch-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    max-width: var(--max-width);
+    margin: 0 auto;
+    gap: 15px;
+}
+
+.switch-button{
+    color: var(--color-1);
+    background-color: var(--background-color-1);
+
+    font-size: 16px;
+    padding: 7px 14px;
+}
+
+.switch-button.active{
+    background-color: var(--color-hover-1);
+    color: var(--background-color-1);
+}

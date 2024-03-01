@@ -1,50 +1,50 @@
-{% extends  "base.html" %}
+{% extends  "appointmenting.html" %}
 
 {% load static %}
 
-{% block head  %}
+{% block twostyles  %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/specialists.css' %}">
 <script type="text/javascript" src="{% static 'js/select_specialists.js' %}" defer></script>
+
+<script>
+    const current_page = 0;
+</script>
 {% endblock %}
 
-{% block content  %}
+{% block container  %}
 
+<h1>Выбрать врача</h1>
+<br>
+<div class="workers">
 
-<br><br>
-<div class="container">
-    <h1>Выбрать врача</h1>
-    <br>
-    <div class="workers">
+    {% for worker in workers %}
 
-        {% for worker in workers %}
-
-        <div id="worker-card-{{worker.id}}" class="worker-card">
-            <div class="worker">
-                <img src="{{worker.get_avatar_url}}">
-                <div class="worker-info">
-                    <span class="username">@{{worker.username}}</span>
-                    <span class="title">{{worker.first_name}} {{worker.last_name}}</span>
-                    <span class="work-title">{{worker.profile.specialization}}</span>
-                    <span class="description">{{worker.profile.description}}</span>
-                </div>
-            </div>
-
-            <span>Ближайшее время для записи {{worker.get_free_times.date_str}}:</span>
-            <div class="buttons">
-
-                {% for time in worker.get_free_times.times %}
-                <button  name="{{time.datetime}}" class="time-button">{{time.time_str}}</button>
-                {% endfor%}
+    <div id="worker-card-{{worker.id}}" class="worker-card">
+        <div class="worker">
+            <img src="{{worker.get_avatar_url}}">
+            <div class="worker-info">
+                <span class="username">@{{worker.username}}</span>
+                <span class="title">{{worker.first_name}} {{worker.last_name}}</span>
+                <span class="work-title">{{worker.profile.specialization}}</span>
+                <span class="description">{{worker.profile.description}}</span>
             </div>
         </div>
 
-        {% endfor%}
+        <span>Ближайшее время для записи {{worker.get_free_times.date_str}}:</span>
+        <div class="buttons">
 
+            {% for time in worker.get_free_times.times %}
+            <button  name="{{time.datetime}}" class="time-button">{{time.time_str}}</button>
+            {% endfor%}
+        </div>
     </div>
 
-    <div id="bottom-menu" class="fixed-bottom disabled">
-        <button class="button">Выбрать услугу</button>
-    </div>
+    {% endfor%}
+
+</div>
+
+<div id="bottom-menu" class="fixed-bottom disabled">
+    <button class="button">Выбрать услугу</button>
 </div>
 
 

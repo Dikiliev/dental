@@ -1,10 +1,13 @@
-from django.urls import path
-from . import views
+from django.urls import path, register_converter
+from . import views, converters
 
 
 SPECIALIST = 'm'
 SERVICE = 's'
 DATE = 'd'
+
+register_converter(converters.IntListConverter, 'intlist')
+register_converter(converters.DateTimeConverter, 'datetime')
 
 
 urlpatterns = [
@@ -13,16 +16,16 @@ urlpatterns = [
     path('order/', views.order, name='order'),
 
 
-    path(f'select_specialist/{SPECIALIST}<specialist_id>{SERVICE}<service_id>{DATE}<date>', views.select_specialist,
+    path(f'select_specialist/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<date>', views.select_specialist,
          name='select-specialist'),
 
-    path(f'select_service/{SPECIALIST}<specialist_id>{SERVICE}<service_id>{DATE}<date>', views.select_service,
+    path(f'select_service/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<date>', views.select_service,
          name='select-service'),
 
-    path(f'select_date/{SPECIALIST}<specialist_id>service<{SERVICE}>{DATE}<date>', views.select_date,
+    path(f'select_date/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<date>', views.select_date,
          name='select-date'),
 
-    path(f'completion_appointment/{SPECIALIST}<specialist_id>{SERVICE}<service_id>{DATE}<date>', views.completion_appointment,
+    path(f'completion_appointment/{SPECIALIST}<specialist_id>{SERVICE}<service_ids>{DATE}<date>', views.completion_appointment,
          name='completion-appointment'),
 
     path(f'get_free_times/<specialist_id>', views.get_free_times),

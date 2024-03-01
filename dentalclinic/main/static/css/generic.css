@@ -103,7 +103,7 @@ form a:hover{
     outline:none;
     font-size: 20px;
 
-    border-radius: calc(var(--base-border-radius) / 2);
+    border-radius: var(--base-border-radius);
     border: none;
 
     background-color: var(--color-hover-1);

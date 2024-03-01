@@ -62,6 +62,13 @@
     transition: var(--base-transition);
 }
 
+button{
+    outline: none;
+    border: none;
+
+    border-radius: var(--base-border-radius);
+}
+
 button:hover{
     cursor: pointer;
 }
