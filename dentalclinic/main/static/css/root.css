@@ -72,3 +72,8 @@ button{
 button:hover{
     cursor: pointer;
 }
+
+footer{
+    min-height: 200px;
+    background-color: var(--background-color-1);
+}

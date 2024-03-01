@@ -116,11 +116,11 @@ form a:hover{
 }
 
 .fixed-bottom{
-    position: fixed;
+    position: sticky;
     bottom: 24px;
 
     z-index: 9999;
-    margin: 0 auto;
+    margin: 20px auto;
     opacity: 1;
     width: calc(var(--max-width) - 32px);
 }
@@ -132,6 +132,7 @@ form a:hover{
     gap: 10px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 1px var(--shadow-blur) rgba(0, 68, 48, 0.2);
 }
 
 
@@ -142,5 +143,4 @@ form a:hover{
 .disabled{
     display: none;
     opacity: 0;
-    transition: all 1s linear;;
 }
