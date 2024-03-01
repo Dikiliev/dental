@@ -93,3 +93,12 @@
 .service-card.selected .check-mark-img{
     display: block;
 }
+
+.services-check-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.services-check-info-p{
+    color: var(--color-transparent)
+}
