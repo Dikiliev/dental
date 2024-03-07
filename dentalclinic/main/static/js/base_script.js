@@ -1,39 +1,32 @@
 BASE_URL = 'http://127.0.0.1:8000/'
 
 
+async function fetchData(url) {
+    url = BASE_URL + url;
+  try {
+    const response = await fetch(url);
 
-function get_text(filename, id){
-    fetch(filename)
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById(id).innerHTML = text;
-        })
-        .catch(error => {
-            console.error('Ошибка при загрузке текста:', error);
-            document.getElementById(id).innerHTML = 'Ошибка при загрузке текста.'
-        });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error('There was a problem with your fetch operation:', error);
+    throw error;
+  }
 }
 
+function getCsrfToken() {
+    const csrfTokenElement = document.getElementsByName('csrfmiddlewaretoken')[0];
+    return csrfTokenElement ? csrfTokenElement.value : '';
+}
 
-function swipe_menu_response(url){
-    url = 'http://127.0.0.1:8000/' + url;
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                console.log('errorr: ');
-                throw new Error('Сетевая ошибка');
-            }
-            console.log('response: ' + response);
-            return response.json(); // Парсим ответ как JSON
-        })
-        .then(data => {
-            // Обрабатываем полученные данные
-            console.log('get: ' + data);
-        })
-        .catch(error => {
-            // Обрабатываем ошибку
-            console.error('Произошла ошибка:', error);
-        });
-
-    console.log('READY')
+function capitalize(str) {
+  if (str && typeof str === 'string') {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  return str;
 }

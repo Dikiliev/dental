@@ -1,0 +1,52 @@
+{% extends  "appointmenting.html" %}
+
+{% load static %}
+
+{% block twostyles  %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/select_date.css' %}">
+
+<script>
+    const current_page = 2;
+</script>
+{% endblock %}
+
+{% block container  %}
+
+
+<h1>Выбрать дату и время</h1>
+<br>
+{% csrf_token %}
+<div class="calender">
+    <div class="calender-head">
+        <span id="month-title">Месяц</span>
+        <div class="calender-switch-buttons">
+            <button disabled id="previous-month-button" class="calender-switch-button"> < </button>
+            <button id="next-month-button" class="calender-switch-button"> > </button>
+        </div>
+    </div>
+    <br>
+    <div id="calender-grid" class="calender-grid">
+
+    </div>
+
+    <div id="times-grid" class="calender-grid">
+
+    </div>
+
+</div>
+
+
+
+<div id="bottom-menu" class="fixed-bottom disabled">
+    <button class="button">Выбрать услугу</button>
+</div>
+
+<script type="text/javascript" src="{% static 'js/select_date.js' %}"></script>
+
+<script>
+    initDates();
+    generateCalendar();
+</script>
+
+{% endblock %}
+

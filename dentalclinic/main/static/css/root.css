@@ -62,6 +62,10 @@
     transition: var(--base-transition);
 }
 
+*:disabled{
+    opacity: 0.5;
+}
+
 button{
     outline: none;
     border: none;
@@ -71,6 +75,10 @@ button{
 
 button:hover{
     cursor: pointer;
+}
+
+button:disabled:hover{
+    cursor: default;
 }
 
 footer{

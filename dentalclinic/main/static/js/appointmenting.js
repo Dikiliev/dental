@@ -23,7 +23,7 @@ serviceButton.addEventListener('click', () =>{
 });
 
 dateButton.addEventListener('click', () =>{
-    redirect_url('select_service');
+    redirect_url('select_date');
 });
 
 function redirect_url(url){

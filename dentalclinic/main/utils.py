@@ -23,22 +23,6 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
         return f'{value.day} ' + ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
                 'ноября', 'декабря'][value.month]
 
-    def get_free_times_in_day(d: date, appointments: [(datetime, int)], start_time: time, end_time: time):
-        result = []
-
-        d = datetime.combine(d, start_time)
-        while d.time() < end_time:
-            result.append(d.time())
-            d += timedelta(minutes=30)
-
-        for appointment in appointments:
-            start_appointment = (appointment[0] - timedelta(minutes=30)).time()
-            end_appointment = (appointment[0] + timedelta(minutes=appointment[1])).time()
-
-            result = list(filter(lambda x: x >= end_appointment or x <= start_appointment, result))
-
-        return result
-
     dt = round_datetime(datetime.now())
     result = get_free_times_in_day(dt.date(), get_appointments_in(dt.date()), max(start_time, dt.time()), end_time)
     while not result:
@@ -46,3 +30,20 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
         result = get_free_times_in_day(dt.date(), get_appointments_in(dt.date()), start_time, end_time)
 
     return get_correct_next_time(dt.date()), [datetime.combine(dt, t) for t in result]
+
+
+def get_free_times_in_day(d: date, appointments: [(datetime, int)], start_time: time, end_time: time):
+    result = []
+
+    d = datetime.combine(d, start_time)
+    while d.time() < end_time:
+        result.append(d.time())
+        d += timedelta(minutes=30)
+
+    for appointment in appointments:
+        start_appointment = (appointment[0] - timedelta(minutes=30)).time()
+        end_appointment = (appointment[0] + timedelta(minutes=appointment[1])).time()
+
+        result = list(filter(lambda x: x >= end_appointment or x <= start_appointment, result))
+
+    return result

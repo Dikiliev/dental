@@ -8,8 +8,10 @@ function initService(){
 
         card.classList.toggle('selected', selectedServiceIds.includes(+card.id.replace(serviceIdPrefix, '')))
     }
-
+    console.log(services);
+    console.log(selectedServiceIds);
     refreshNextButton();
+
 }
 
 function selectService(id){

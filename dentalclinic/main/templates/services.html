@@ -45,7 +45,7 @@
     }
     let service;
 
-    {% for service in worker.profile.services.all %}
+    {% for service in services %}
 
     service = {
         'title': '{{service.title}}',

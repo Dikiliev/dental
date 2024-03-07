@@ -28,6 +28,8 @@ urlpatterns = [
     path(f'completion_appointment/{SPECIALIST}<specialist_id>{SERVICE}<service_ids>{DATE}<date>', views.completion_appointment,
          name='completion-appointment'),
 
+    path(f'get_times/<int:specialist_id>/<int:year>/<int:month>/<int:day>', views.get_times, name='get-times'),
+
     path(f'get_free_times/<specialist_id>', views.get_free_times),
 
     path('test_page/', views.test_page, name='test-page'),

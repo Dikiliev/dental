@@ -12,6 +12,7 @@ from django.core.serializers import serialize
 
 from .models import User, Profile, Appointment, Service
 from .converters import IntListConverter, DateTimeConverter
+from .utils import *
 
 DEFAULT_TITLE = 'DentalClinic'
 
@@ -55,7 +56,12 @@ def select_service(request: HttpRequest, specialist_id: str, service_ids: [int],
 
 
 def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], date: str):
-    return HttpResponse(f'specialist: {specialist_id}, service: {service_ids}, date: {date}')
+    data = create_base_data()
+    data['specialist_id'] = specialist_id
+    data['service_id'] = service_ids
+    data['date'] = date
+
+    return render(request, 'select_date.html', data)
 
 
 def completion_appointment(request: HttpRequest, specialist_id: int, service_id: int, date: str):
@@ -214,6 +220,17 @@ def test_method(request: HttpRequest):
 #         return JsonResponse(response_data)
 #     else:
 #         return JsonResponse({"error": "Метод запроса должен быть POST"})
+
+
+@csrf_exempt
+def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: int):
+    data = dict()
+    data['message'] = 'success'
+
+    dt = datetime(year, month, day)
+    data['times'] = get_free_times_in_day(dt, [], time(9, 0), time(18, 0))
+
+    return JsonResponse(data)
 
 
 @csrf_exempt
