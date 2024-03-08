@@ -41,16 +41,20 @@ class User(AbstractUser):
 
         return self.avatar.url
 
+    def get_appointment_by_list(self):
+        appointments = self.dentist_appointments.all()
+        return [(appointment.date_time, appointment.get_duration()) for appointment in appointments]
+
     def get_free_times(self):
         if self.role == 1:
             raise Exception('Попытка получения свободного времени у обычного пользователя')
 
         profile = self.profile
+
         if profile is None:
             raise Exception('У специалиста отсутвует специализация (Profile)')
 
-        appointments = self.dentist_appointments.all()
-        appointments = [(appointment.date_time, appointment.get_duration()) for appointment in appointments]
+        appointments = self.get_appointment_by_list()
 
         result = utils.get_free_times(appointments, profile.start_time, profile.end_time)[:6]
 
@@ -62,6 +66,20 @@ class User(AbstractUser):
             } for i in range(min(len(result[1]), 6))],
         }
 
+        return result
+
+    def get_free_times_in_day(self, date):
+        if self.role == 1:
+            raise Exception('Попытка получения свободного времени у обычного пользователя')
+
+        profile = self.profile
+
+        if profile is None:
+            raise Exception('У специалиста отсутвует специализация (Profile)')
+
+        appointments = self.get_appointment_by_list()
+
+        result = utils.get_free_times_in_day(date, appointments, profile.start_time, profile.end_time)
         return result
 
 

@@ -1,6 +1,11 @@
 BASE_URL = 'http://127.0.0.1:8000/'
 
 
+function to_date(valueStr){
+  const parts = valueStr.split('-');
+  return new Date(parts[0], parts[1], parts[2], parts[3], parts[4]);
+}
+
 async function fetchData(url) {
     url = BASE_URL + url;
   try {
@@ -10,8 +15,7 @@ async function fetchData(url) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
 
   } catch (error) {
     console.error('There was a problem with your fetch operation:', error);

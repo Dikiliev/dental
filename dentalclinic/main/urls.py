@@ -16,21 +16,19 @@ urlpatterns = [
     path('order/', views.order, name='order'),
 
 
-    path(f'select_specialist/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<date>', views.select_specialist,
+    path(f'select_specialist/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<dt>', views.select_specialist,
          name='select-specialist'),
 
-    path(f'select_service/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<date>', views.select_service,
+    path(f'select_service/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<dt>', views.select_service,
          name='select-service'),
 
-    path(f'select_date/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<date>', views.select_date,
+    path(f'select_date/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<dt>', views.select_date,
          name='select-date'),
 
-    path(f'completion_appointment/{SPECIALIST}<specialist_id>{SERVICE}<service_ids>{DATE}<date>', views.completion_appointment,
+    path(f'completion_appointment/{SPECIALIST}<specialist_id>{SERVICE}<service_ids>{DATE}<dt>', views.completion_appointment,
          name='completion-appointment'),
 
     path(f'get_times/<int:specialist_id>/<int:year>/<int:month>/<int:day>', views.get_times, name='get-times'),
-
-    path(f'get_free_times/<specialist_id>', views.get_free_times),
 
     path('test_page/', views.test_page, name='test-page'),
     path('test_page/<int:num>/', views.test_page, name='test-page'),

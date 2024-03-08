@@ -32,7 +32,7 @@ const previousButton = document.getElementById('previous-month-button');
 const nextButton = document.getElementById('next-month-button');
 
 const calendarGrid = document.getElementById('calender-grid')
-const timesGrid = document.getElementById('');
+const timesGrid = document.getElementById('times-grid');
 
 const today = new Date();
 let selectDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -54,6 +54,7 @@ function initDates(){
     nextButton.addEventListener('click', () => {
        setMonth(1);
     });
+
 }
 
 function generateCalendar(refresh = false) {
@@ -79,6 +80,8 @@ function generateCalendar(refresh = false) {
         const disabled = selectDate.getMonth() === today.getMonth() && day < today.getDate();
         calendarGrid.appendChild(calendarGridButton(new Date(selectDate.getFullYear(), selectDate.getMonth(), day), disabled, day === selectDate.getDate() ? 'selected' : ''));
     }
+
+    generateTimes();
 }
 
 function setMonth(direction){
@@ -108,43 +111,32 @@ function setDay(value){
     selectDate = value;
 
     generateCalendar(true);
-
-    const response = fetchData('get_times/15/2024/3/7');
-    response.then(result => {
-        generateTimes(result.times)
-    }).catch(error => {
-
-    });
 }
 
 // TIMES
-function generateTimesElement(time){
-    const element = document.createElement('div');
-    const button = document.createElement('button');
-
-    button.classList.add('time-button');
-    button.textContent = time;
-
-    // disabled && button.setAttribute('disabled', 'disabled');
-    // extraClass && button.classList.add(extraClass);
+function generateTimesElement(time, extraClass){
+    const element = document.createElement('button');
 
     element.classList.add('time-el');
-    element.appendChild(button);
+    element.textContent = time;
+
+    extraClass && element.classList.add(extraClass);
 
     return element;
 }
 
+function generateTimes(){
+    timesGrid.innerHTML = '';
 
-function generateTimes(times){
-    console.log(times);
-    console.log(times[0]);
-    // timesGrid.innerHTML = '';
-
-    console.log(times.length)
-    for (const time in times){
-        console.log(times[i]);
-
-        const element = generateTimesElement(time);
-        timesGrid.appendChild(element);
+    const response = fetchData('get_times/15/2024/3/7');
+    response.then(result => {
+            for (const time of result.times){
+                const element = generateTimesElement(time);
+                timesGrid.appendChild(element);
     }
+    }).catch(error => { });
+}
+
+function setTime(value){
+
 }

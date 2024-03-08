@@ -29,22 +29,21 @@ def catalog(request: HttpRequest):
     return render(request, 'catalog.html', data)
 
 
-def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], date: str):
+def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
     data = create_base_data()
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
-    data['date'] = date
-
+    data['date'] = dt
     data['workers'] = User.objects.filter(role=2)
 
     return render(request, 'specialists.html', data)
 
 
-def select_service(request: HttpRequest, specialist_id: str, service_ids: [int], date: str):
+def select_service(request: HttpRequest, specialist_id: str, service_ids: [int], dt: datetime):
     data = create_base_data()
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
-    data['date'] = date
+    data['date'] = dt
 
     workers = User.objects.filter(id=specialist_id)
 
@@ -55,52 +54,17 @@ def select_service(request: HttpRequest, specialist_id: str, service_ids: [int],
     return render(request, 'services.html', data)
 
 
-def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], date: str):
+def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
     data = create_base_data()
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
-    data['date'] = date
+    data['date'] = dt
 
     return render(request, 'select_date.html', data)
 
 
-def completion_appointment(request: HttpRequest, specialist_id: int, service_id: int, date: str):
-    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {date}')
-
-
-def get_free_times(request: HttpRequest, specialist_id: int, day: int = -1):
-    appointments = Appointment.objects.all()
-
-    now = datetime.datetime.now()
-    current_datetime = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0)
-    if now.minute >= 30:
-        current_datetime += datetime.timedelta(hours=1)
-    else:
-        current_datetime += datetime.timedelta(minutes=30)
-
-    result = []
-
-    for appointment in appointments:
-        appointment.date_time = timezone.make_naive(appointment.date_time)
-
-        if appointment.date_time + datetime.timedelta(minutes=appointment.get_duration()) < current_datetime:
-            continue
-
-        if appointment.date_time < current_datetime:
-            current_datetime = appointment.date_time + datetime.timedelta(minutes=appointment.get_duration())
-            continue
-
-        while current_datetime + datetime.timedelta(minutes=30) <= appointment.date_time:
-            result.append(current_datetime)
-            current_datetime += datetime.timedelta(minutes=30)
-
-        current_datetime += datetime.timedelta(minutes=appointment.get_duration())
-
-    while len(result) < 10:
-        result.append(current_datetime)
-        current_datetime += datetime.timedelta(minutes=30)
-
-    return HttpResponse(f'message: Success, result: {[str(item.time()) for item in result]}')
+def completion_appointment(request: HttpRequest, specialist_id: int, service_id: int, dt: str):
+    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {dt}')
 
 
 def order(request: HttpRequest):
@@ -228,7 +192,14 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
     data['message'] = 'success'
 
     dt = datetime(year, month, day)
-    data['times'] = get_free_times_in_day(dt, [], time(9, 0), time(18, 0))
+    specialist = User.objects.get(pk=specialist_id)
+    appointments = specialist.get_appointment_by_list()
+    start_time = specialist.profile.start_time
+    end_time = specialist.profile.end_time
+
+    times = get_free_times_in_day(dt, appointments, start_time, end_time)
+
+    data['times'] = [t.strftime("%H:%M") for t in times]
 
     return JsonResponse(data)
 
