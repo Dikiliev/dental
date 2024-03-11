@@ -36,6 +36,7 @@ const timesGrid = document.getElementById('times-grid');
 
 const today = new Date();
 let selectDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+let selectTime = null;
 
 const daysOfWeekHTML = () => {
     calendarGrid.innerHTML = '';
@@ -82,6 +83,7 @@ function generateCalendar(refresh = false) {
     }
 
     generateTimes();
+    selectedDate = null;
 }
 
 function setMonth(direction){
@@ -122,6 +124,14 @@ function generateTimesElement(time, extraClass){
 
     extraClass && element.classList.add(extraClass);
 
+    let time_parts = time.split(':').map(element => parseInt(element));
+    const date = new Date(selectDate.getFullYear(), selectDate.getMonth(), selectDate.getDate(), time_parts[0], time_parts[1]);
+
+    element.setAttribute('datetime', Date.parse(date));
+    element.addEventListener('click', () => {
+        setTime(date);
+    });
+
     return element;
 }
 
@@ -130,13 +140,34 @@ function generateTimes(){
 
     const response = fetchData('get_times/15/2024/3/7');
     response.then(result => {
-            for (const time of result.times){
-                const element = generateTimesElement(time);
-                timesGrid.appendChild(element);
-    }
+
+        for (const time of result.times){
+            const element = generateTimesElement(time);
+            timesGrid.appendChild(element);
+        }
+        refreshTimes();
+
     }).catch(error => { });
 }
 
-function setTime(value){
+function refreshTimes(){
+    const timeElements = timesGrid.getElementsByClassName('time-el')
+    for (const timeElement of timeElements){
+        const date = parseInt(timeElement.getAttribute('datetime'))
 
+        timeElement.classList.toggle('selected', date === selectedDate.getTime());
+    }
+
+    refreshNextButton();
+}
+
+function setTime(date){
+    selectedDate = date;
+    refreshTimes();
+}
+
+function refreshNextButton(){
+    const bottomMenu = document.getElementById('bottom-menu')
+    
+    bottomMenu.classList.toggle('disabled', selectedDate === null);
 }

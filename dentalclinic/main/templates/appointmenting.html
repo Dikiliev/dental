@@ -10,10 +10,11 @@
     let selectedServiceIds = {{service_id}};
     let selectedDate = '{{date}}';
 
-    console.log(selectedDate);
     selectedDate = to_date(selectedDate)
 
-    console.log(selectedDate);
+    if (!isNaN(selectedDate)){
+        selectedDate = null;
+    }
 
     if (selectedServiceIds && selectedServiceIds[0] === -1){
         selectedServiceIds = [];

@@ -88,7 +88,7 @@
 
 }
 
-.calender-grid-element-button.selected{
+.calender-grid-element-button.selected, .time-el.selected{
     background: var(--color-hover-1);
     color: var(--background-color-1)
 }
