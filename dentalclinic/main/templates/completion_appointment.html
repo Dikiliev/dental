@@ -1,0 +1,39 @@
+{% extends  "base.html" %}
+
+{% load static %}
+
+{% block head  %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/completion_appointment.css' %}">
+
+<script>
+    const current_page = 4;
+</script>
+{% endblock %}
+
+{% block content  %}
+
+<br><br>
+<div class="container">
+        <h1>Детали записи</h1>
+        <br>
+
+        <p>{{specialist}}</p>
+
+        {% for service in services %}
+        <p>{{service}}</p>
+        {% endfor %}
+
+        <p>{{date}}</p>
+</div>
+
+
+
+
+<script type="text/javascript" src="{% static 'js/completion_appointment.js' %}"></script>
+
+<script>
+
+</script>
+
+{% endblock %}
+

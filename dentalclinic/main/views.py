@@ -63,8 +63,22 @@ def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt
     return render(request, 'select_date.html', data)
 
 
-def completion_appointment(request: HttpRequest, specialist_id: int, service_id: int, dt: str):
-    return HttpResponse(f'specialist: {specialist_id}, service: {service_id}, date: {dt}')
+def completion_appointment(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
+    data = create_base_data()
+
+    specialist = User.objects.filter(id=specialist_id)
+    if specialist:
+        data['specialist'] = specialist[0]
+
+    if type(service_ids) == int:
+        service_ids = [service_ids]
+
+    services = Service.objects.filter(id__in=service_ids)
+
+    data['services'] = services
+    data['date'] = dt
+
+    return render(request, 'completion_appointment.html', data)
 
 
 def order(request: HttpRequest):
