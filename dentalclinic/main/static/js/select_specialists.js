@@ -9,7 +9,7 @@ initSpecialist();
 function initSpecialist(){
     for (const card of workerCards) {
         card.getElementsByClassName('worker')[0].addEventListener('click', () => {
-            selectSpecialist(card.id.replace(cardPrefix, ''));
+            selectSpecialist(+card.id.replace(cardPrefix, ''));
         });
 
         const timeButtons = card.getElementsByClassName('time-button')
@@ -25,19 +25,17 @@ function initSpecialist(){
     if (selectElement){
         selectElement.classList.toggle('selected', true);
     }
-
-    refreshNextButton();
 }
 
 function selectSpecialist(id, force=false){
+    console.log(`set spec from ${selectedSpecialistId} to ${id}`)
+
     if (!force && id === selectedSpecialistId){
         selectedSpecialistId = -1
     }
     else{
         selectedSpecialistId = id;
     }
-
-    console.log(selectedSpecialistId);
     unselectAll();
     const selectElement = document.getElementById(cardPrefix + selectedSpecialistId);
 
@@ -83,9 +81,4 @@ function unselectAll(){
         }
 
     }
-}
-
-function refreshNextButton(){
-    const bottomMenu = document.getElementById('bottom-menu')
-    bottomMenu.classList.toggle('disabled', selectedSpecialistId === -1);
 }

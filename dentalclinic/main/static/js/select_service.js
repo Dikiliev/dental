@@ -8,10 +8,6 @@ function initService(){
 
         card.classList.toggle('selected', selectedServiceIds.includes(+card.id.replace(serviceIdPrefix, '')))
     }
-    console.log(services);
-    console.log(selectedServiceIds);
-    refreshNextButton();
-
 }
 
 function selectService(id){
@@ -26,31 +22,4 @@ function selectService(id){
 
     selectElement.classList.toggle('selected', selectedServiceIds.includes(id))
     refreshNextButton();
-
-    console.log(selectedServiceIds);
-}
-
-function refreshNextButton(){
-    const bottomMenu = document.getElementById('bottom-menu')
-    bottomMenu.classList.toggle('disabled', selectedServiceIds.length === 0);
-
-    if (selectedServiceIds.length > 0){
-        let bottomHTML = '<div class="services-check-info">';
-        let total = 0;
-        let totalDuration = 0;
-
-        for (const selectedId of selectedServiceIds){
-            const ser = services[selectedId]
-            totalDuration += ser.duration;
-            total += ser.price;
-
-            bottomHTML += `<span class="services-check-info-p">${ser.title} - ${ser.price}</span>`
-        }
-
-        bottomHTML += '</div>'
-
-        bottomHTML += `<span class="service-title">Итого: ${total} ₽ <span class="service-duration">(${totalDuration}) мин.</span></span>`
-        bottomHTML += `<button class="button">Выбрать время</button>`
-        bottomMenu.innerHTML = bottomHTML;
-    }
 }

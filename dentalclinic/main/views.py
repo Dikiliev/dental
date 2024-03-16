@@ -19,6 +19,7 @@ DEFAULT_TITLE = 'DentalClinic'
 
 def home(request: HttpRequest):
     data = create_base_data('Home')
+    return redirect('/select_specialist/m-1s-1d-1')
     return render(request, 'index.html', data)
 
 
@@ -54,7 +55,7 @@ def select_service(request: HttpRequest, specialist_id: str, service_ids: [int],
     return render(request, 'services.html', data)
 
 
-def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
+def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
     data = create_base_data()
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids

@@ -12,13 +12,15 @@
 
     selectedDate = to_date(selectedDate)
 
-    if (!isNaN(selectedDate)){
+    if (isNaN(selectedDate)){
         selectedDate = null;
     }
 
     if (selectedServiceIds && selectedServiceIds[0] === -1){
         selectedServiceIds = [];
     }
+
+    console.log(`spec: ${selectedSpecialistId}; services: ${selectedServiceIds}; date: ${selectedDate}`);
 </script>
 
 {% block twostyles  %}
@@ -36,7 +38,7 @@
     <button id="date-button" class="switch-button">Выбрать время</button>
 </div>
 
-<script type="text/javascript" src="{% static 'js/appointmenting.js' %}" defer></script>
+<script type="text/javascript" src="{% static 'js/appointmenting.js' %}"></script>
 
 <br><br>
 <div class="container">
@@ -45,5 +47,11 @@
     {% endblock %}
 </div>
 
+<script defer>
+    refreshNextButton();
+</script>
+
 {% endblock %}
+
+
 

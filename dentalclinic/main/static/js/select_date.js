@@ -59,7 +59,10 @@ function initDates(){
 }
 
 function generateCalendar(refresh = false) {
-    !refresh && selectDate.setDate((selectDate.getMonth() === today.getMonth()) ? today.getDate() : 1);
+    !refresh && selectDate.setDate((selectDate.getMonth() === today.getMonth()) ?
+        isSelectedDate() ? selectedDate.getDate() : today.getDate()
+        :
+        1);
 
     const firstDayOfMonth = new Date(selectDate.getFullYear(), selectDate.getMonth(), 0).getDay();
     const adjustedFirstDay = (firstDayOfMonth + 6) % 7;
@@ -82,8 +85,11 @@ function generateCalendar(refresh = false) {
         calendarGrid.appendChild(calendarGridButton(new Date(selectDate.getFullYear(), selectDate.getMonth(), day), disabled, day === selectDate.getDate() ? 'selected' : ''));
     }
 
+    if (refresh){
+        selectedDate = null;
+    }
+
     generateTimes();
-    selectedDate = null;
 }
 
 function setMonth(direction){
@@ -132,6 +138,8 @@ function generateTimesElement(time, extraClass){
         setTime(date);
     });
 
+    refreshTimes();
+
     return element;
 }
 
@@ -145,9 +153,12 @@ function generateTimes(){
             const element = generateTimesElement(time);
             timesGrid.appendChild(element);
         }
-        refreshTimes();
 
-    }).catch(error => { });
+        refreshNextButton();
+
+    }).catch(error => {
+        console.error(error);
+    });
 }
 
 function refreshTimes(){
@@ -155,7 +166,7 @@ function refreshTimes(){
     for (const timeElement of timeElements){
         const date = parseInt(timeElement.getAttribute('datetime'))
 
-        timeElement.classList.toggle('selected', date === selectedDate.getTime());
+        timeElement.classList.toggle('selected', isSelectedDate() && date === selectedDate.getTime());
     }
 
     refreshNextButton();
@@ -164,10 +175,4 @@ function refreshTimes(){
 function setTime(date){
     selectedDate = date;
     refreshTimes();
-}
-
-function refreshNextButton(){
-    const bottomMenu = document.getElementById('bottom-menu')
-    
-    bottomMenu.classList.toggle('disabled', selectedDate === null);
 }
