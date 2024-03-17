@@ -1,5 +1,11 @@
-a = [2]
 
-w = a[0] if a else None
+def calculte(a):
+    for b in range(1, 11):
+        print(f'{a} x {b} = {a * b}')
 
-print(w)
+
+for a in range(1, 10):
+    print(f'Таблица {a}')
+    calculte(a)
+    print()
+

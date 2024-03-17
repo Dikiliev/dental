@@ -6,9 +6,9 @@
 <br>
 
 <div class="container">
-    <h1>Регистрация</h1>
 
     <form class="" action="" method="post">
+        <h1>Регистрация</h1>
         {% csrf_token %}
 
         <div class="input-group">
@@ -45,7 +45,6 @@
         </div>
 
         <p class="error">{{ error }}</p>
-        <br>
         <button class="button" type="submit">Зарегистрироваться</button>
         <a href="/login">Уже зарегестрированы? Войти</a>
 

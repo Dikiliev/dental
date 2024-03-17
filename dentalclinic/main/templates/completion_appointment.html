@@ -3,8 +3,8 @@
 {% load static %}
 
 {% block head  %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/appointmenting.css' %}" xmlns="http://www.w3.org/1999/html">
 <link type="text/css" rel="stylesheet" href="{% static 'css/completion_appointment.css' %}">
-
 <script>
     const current_page = 4;
 </script>
@@ -14,19 +14,66 @@
 
 <br><br>
 <div class="container">
+    <div class="strap">
         <h1>Детали записи</h1>
-        <br>
 
-        <p>{{specialist}}</p>
+        <div class="card">
+            <img src="{{specialist.get_avatar_url}}">
+            <div class="card-info">
+                <span class="username">{{specialist.profile.specialization}}</span>
+                <span class="title-specialist">{{specialist.first_name}} {{specialist.last_name}}</span>
+            </div>
+        </div>
 
-        {% for service in services %}
-        <p>{{service}}</p>
-        {% endfor %}
+        <div class="card datetime-card">
+            <img src="{% static 'images/calendar.png' %}">
+            <div class="card-info">
+                <span class="username">{{date.week}}, {{date.day}} {{date.month}}</span>
+                <span class="title-specialist">{{date.time}}</span>
+            </div>
+        </div>
 
-        <p>{{date}}</p>
+        <h2>Услуги</h2>
+
+        <div class="selected-services">
+            {% for service in services %}
+
+
+                <div class="service-info">
+                    <span class="service-title">{{service.title}}&nbsp;&nbsp;<span class="service-duration">{{service.duration}} мин.</span></span>
+                    <span class="service-price">{{service.price}} ₽</span>
+                </div>
+
+
+            {% endfor %}
+
+            <hr>
+            <p><span class="service-title">Итого</span> <span class="service-price">{{total}} ₽</span></p>
+        </div>
+    </div>
+
+    <form class="strap" action="" method="post">
+        {% csrf_token %}
+        <h2>Ваши данные</h2>
+
+        <div class="input-group">
+            <label for="name">Имя *</label>
+            <input type="text" id="name" name="username" value="{{ username }}" placeholder="Введите имя" required>
+        </div>
+
+        <div class="input-group">
+            <label for="phone">Телефона *</label>
+            <input type="tel" id="phone" name="phone" value="{{ phone }}" placeholder="Номер телефона" required>
+        </div>
+
+        <div class="input-group">
+            <label for="comment">Комментарий к записи</label>
+            <textarea type="tel" id="comment" name="comment" placeholder="Комментарий к записи"></textarea>
+        </div>
+
+        <button class="button" type="submit">Записаться</button>
+    </form>
 </div>
-
-
 
 
 <script type="text/javascript" src="{% static 'js/completion_appointment.js' %}"></script>

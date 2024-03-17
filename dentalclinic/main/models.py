@@ -61,7 +61,7 @@ class User(AbstractUser):
         result = {
             'date_str': result[0],
             'times': [{
-                'datetime': result[1][i],
+                'datetime': result[1][i].strftime("%Y-%m-%d-%H-%M"),
                 'time_str': result[1][i].strftime("%H:%M")
             } for i in range(min(len(result[1]), 6))],
         }

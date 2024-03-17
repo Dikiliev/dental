@@ -63,8 +63,8 @@ function refreshNextButton(){
     }
 
     nextPages = nextPages.filter(page => !completedPages.includes(page));
-    const nextPage = nextPages[0];
-    const nextButtonText = pages[nextPage].buttonText;
+    const nextPage = pages[nextPages[0]];
+    const nextButtonText = nextPage.buttonText;
 
     switch (current_page){
         case 0:
@@ -108,7 +108,7 @@ function refreshNextButton(){
         bottomNextButton.innerHTML = nextButtonText;
 
         bottomNextButton.onclick = () => {
-          console.log(nextPage);
+            redirect_url(nextPage.url)
         };
 
     }

@@ -33,27 +33,7 @@
     height: 100%;
 }
 
-.service-info{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-.service-title{
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.service-duration{
-    font-size: 16px;
-    color: var(--color-transparent)
-}
-
-.service-price{
-    font-size: 18px;
-    color: var(--color-hover-1)
-}
 
 .select-button{
     font-family: Arial, serif;

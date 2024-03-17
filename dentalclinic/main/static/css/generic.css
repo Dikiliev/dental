@@ -48,10 +48,14 @@ a{
 
 form{
     box-shadow: 0 1px var(--shadow-blur) var(--shadow);
-    padding: 50px 50px;
+    padding: 20px 50px;
     margin: 20px auto;
 
-    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    width: 100%;
     max-width: 80vw;
 
     background-color: white;
@@ -66,7 +70,8 @@ option{
 .input-group{
     display: flex;
     flex-direction: column;
-    margin: 20px auto;
+    width: 100%;
+    margin: auto;
 }
 .input-group input, .input-group textarea, .input-group select{
     outline: none;
@@ -75,7 +80,7 @@ option{
     border-radius: calc(var(--base-border-radius) / 2);
     border: 0px solid var(--color-1);
 
-    padding: 7px 7px;
+    padding: 12px;
     font-size: 16px;
 }
 .input-group input:hover, .input-group textarea:hover{
@@ -88,7 +93,6 @@ option{
 }
 
 form a{
-    margin-top: 20px;
     display: block;
     width: 100%;
     text-align: center;
@@ -103,7 +107,7 @@ form a:hover{
     outline:none;
     font-size: 20px;
 
-    border-radius: var(--base-border-radius);
+    border-radius: calc(var(--base-border-radius) / 2);
     border: none;
 
     background-color: var(--color-hover-1);
@@ -140,7 +144,18 @@ form a:hover{
     box-shadow: 0 1px var(--shadow-blur) rgba(0, 68, 48, 0.2);
 }
 
-.disabled{
+.disabled {
     display: none;
     opacity: 0;
+}
+
+.strap{
+    width: 100%;
+    padding: 20px;
+    background-color: var(--background-color-1);
+    border-radius: var(--base-border-radius);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

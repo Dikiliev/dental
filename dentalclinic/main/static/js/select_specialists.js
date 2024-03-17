@@ -1,7 +1,6 @@
 const workerCards = document.getElementsByClassName('worker-card');
 const cardPrefix = 'worker-card-';
 const timeButtonPrefix = 'time-button-'
-let selectedTime = null;
 
 initSpecialist();
 
@@ -14,8 +13,11 @@ function initSpecialist(){
 
         const timeButtons = card.getElementsByClassName('time-button')
         for (const timeButton of timeButtons){
+            const dt = Date.parse(toDate(timeButton.getAttribute('name')));
+
+            timeButton.setAttribute('datetime', dt);
             timeButton.addEventListener('click', () => {
-                selectTime(card.id.replace(cardPrefix, ''), timeButton.name)
+                selectTime(card.id.replace(cardPrefix, ''), dt)
             })
         }
     }
@@ -47,13 +49,13 @@ function selectSpecialist(id, force=false){
 }
 
 function selectTime(specialist_id, datetime){
-    console.log('selectTime ' + specialist_id + ' ' + datetime)
-    if (specialist_id === selectedSpecialistId && datetime === selectedTime){
-        selectedTime = null
+    console.log(`select time: ${datetime}; previous: ${Date.parse(selectedDate)}; specialist_id: ${specialist_id}`);
+    if (specialist_id === selectedSpecialistId && datetime === Date.parse(selectedDate)){
+        selectedDate = null
     }
     else{
         selectedSpecialistId = specialist_id;
-        selectedTime = datetime;
+        selectedDate = new Date(datetime);
     }
 
     unselectAll();
@@ -61,7 +63,7 @@ function selectTime(specialist_id, datetime){
     if (selectElement){
         selectElement.classList.toggle('selected', true);
 
-        const timeButton = selectElement.querySelector(`[name="${selectedTime}"]`)
+        const timeButton = selectElement.querySelector(`[datetime="${Date.parse(selectedDate)}"]`)
 
         if (timeButton){
             timeButton.classList.toggle('selected', true)

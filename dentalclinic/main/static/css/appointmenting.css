@@ -20,3 +20,70 @@
     background-color: var(--color-hover-1);
     color: var(--background-color-1);
 }
+
+.worker{
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+
+.worker:hover{
+    cursor: pointer;
+}
+
+.worker img{
+    width: 60px;
+    height: 60px;
+
+    object-fit: cover;
+    border-radius: 60px;
+}
+
+.worker-info{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.username{
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-transparent)
+}
+
+.title-specialist{
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.work-title{
+    font-size: 18px;
+    color: var(--color-1)
+}
+
+.service-info{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-title{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.service-duration{
+    font-size: 16px;
+    color: var(--color-transparent)
+}
+
+.service-price{
+    font-size: 18px;
+    color: var(--color-hover-1)
+}

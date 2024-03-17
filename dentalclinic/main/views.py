@@ -64,7 +64,7 @@ def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt
     return render(request, 'select_date.html', data)
 
 
-def completion_appointment(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
+def completion_appointment(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
     data = create_base_data()
 
     specialist = User.objects.filter(id=specialist_id)
@@ -77,7 +77,16 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
     services = Service.objects.filter(id__in=service_ids)
 
     data['services'] = services
-    data['date'] = dt
+    data['total'] = sum([service.price for service in services])
+
+    dt = DateTimeConverter().to_python(dt)
+    data['date'] = {
+        'date': dt,
+        'day': dt.day,
+        'week': get_week(dt),
+        'month': get_month(dt),
+        'time': dt.strftime('%H:%M')
+    }
 
     return render(request, 'completion_appointment.html', data)
 

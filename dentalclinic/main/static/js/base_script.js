@@ -1,7 +1,7 @@
 BASE_URL = 'http://127.0.0.1:8000/'
 
 
-function to_date(valueStr){
+function toDate(valueStr){
   const parts = valueStr.split('-');
   return new Date(parts[0], parts[1], parts[2], parts[3], parts[4]);
 }

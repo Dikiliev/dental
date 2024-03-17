@@ -31,50 +31,7 @@
     border-color: var(--color-hover-1);
 }
 
-.worker{
-    width: 100%;
-    height: auto;
 
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-
-
-.worker:hover{
-    cursor: pointer;
-}
-
-.worker-info{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-}
-
-.worker img{
-    width: 60px;
-    height: 60px;
-
-    object-fit: cover;
-    border-radius: 60px;
-}
-
-.username{
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--color-transparent)
-}
-
-.title{
-    font-size: 21px;
-    font-weight: 600;
-}
-
-.work-title{
-    font-size: 18px;
-    color: var(--color-1)
-}
 
 .description{
     font-size: 14px;

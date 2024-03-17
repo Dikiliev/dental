@@ -20,8 +20,7 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
         if value == date.today() + timedelta(days=1):
             return 'завтра'
 
-        return f'{value.day} ' + ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
-                'ноября', 'декабря'][value.month]
+        return f'{value.day} ' + get_month(value)
 
     dt = round_datetime(datetime.now())
     result = get_free_times_in_day(dt.date(), get_appointments_in(dt.date()), max(start_time, dt.time()), end_time)
@@ -47,3 +46,12 @@ def get_free_times_in_day(d: date, appointments: [(datetime, int)], start_time: 
         result = list(filter(lambda x: x >= end_appointment or x <= start_appointment, result))
 
     return result
+
+
+def get_month(date: datetime):
+    return ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
+                'ноября', 'декабря'][date.month]
+
+
+def get_week(date: datetime):
+    return ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"][date.weekday()]

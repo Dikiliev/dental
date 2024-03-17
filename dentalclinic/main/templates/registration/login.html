@@ -5,9 +5,8 @@
 <br>
 <br>
 <div class="container">
-    <h1>Вход</h1>
-
     <form class="" action="" method="post">
+        <h1>Вход</h1>
         {% csrf_token %}
 
         <div class="input-group">
@@ -21,7 +20,6 @@
         </div>
 
         <p class="error">{{ error }}</p>
-        <br>
         <button class="button" type="submit">Войти</button>
         <a href="/register">Нет аккаунта? Зарегистрироваться</a>
 
