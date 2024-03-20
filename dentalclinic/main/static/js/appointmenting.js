@@ -130,12 +130,12 @@ function redirect_url(url){
     }
 
     if (isSelectedDate()){
-        resultUrl += `d${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}-${selectedDate.getHours()}-${selectedDate.getMinutes()}`
+        resultUrl += `d${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${selectedDate.getDate()}-${selectedDate.getHours()}-${selectedDate.getMinutes()}`
     }
     else{
         resultUrl += 'd-1'
     }
 
-
+    console.log(`[redirect_url] ${selectedDate}`);
     window.location.assign(resultUrl);
 }

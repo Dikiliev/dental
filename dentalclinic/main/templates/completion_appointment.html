@@ -15,23 +15,45 @@
 <br><br>
 <div class="container">
     <div class="strap">
-        <h1>Детали записи</h1>
 
-        <div class="card">
-            <img src="{{specialist.get_avatar_url}}">
-            <div class="card-info">
-                <span class="username">{{specialist.profile.specialization}}</span>
-                <span class="title-specialist">{{specialist.first_name}} {{specialist.last_name}}</span>
+        {% if is_post %}
+            <div class="container w100" style="padding: 30px 0">
+                <div class="icon-strap">
+                    <img class="big-icon" src="{% static '/images/check_mark_icon.svg' %}">
+                </div>
+                <h1>Вы записаны</h1>
+                <p class="service-title">{{date.week}}, {{date.day}} {{date.month}}, {{date.time}}</p>
+                <button class="button">Записаться еще</button>
             </div>
-        </div>
 
-        <div class="card datetime-card">
-            <img src="{% static 'images/calendar.png' %}">
-            <div class="card-info">
-                <span class="username">{{date.week}}, {{date.day}} {{date.month}}</span>
-                <span class="title-specialist">{{date.time}}</span>
+
+            <div class="card">
+                <img src="{{specialist.get_avatar_url}}">
+                <div class="card-info">
+                    <span class="transparent-text">{{specialist.profile.specialization}}</span>
+                    <span class="title-specialist">{{specialist.first_name}} {{specialist.last_name}}</span>
+                </div>
             </div>
-        </div>
+
+        {% else %}
+            <h1>Детали записи</h1>
+
+            <div class="card">
+                <img src="{{specialist.get_avatar_url}}">
+                <div class="card-info">
+                    <span class="transparent-text">{{specialist.profile.specialization}}</span>
+                    <span class="title-specialist">{{specialist.first_name}} {{specialist.last_name}}</span>
+                </div>
+            </div>
+
+            <div class="card datetime-card">
+                <img src="{% static 'images/calendar.png' %}">
+                <div class="card-info">
+                    <span class="transparent-text">{{date.week}}, {{date.day}} {{date.month}}</span>
+                    <span class="title-specialist">{{date.time}}</span>
+                </div>
+            </div>
+        {% endif %}
 
         <h2>Услуги</h2>
 
@@ -41,38 +63,40 @@
 
                 <div class="service-info">
                     <span class="service-title">{{service.title}}&nbsp;&nbsp;<span class="service-duration">{{service.duration}} мин.</span></span>
-                    <span class="service-price">{{service.price}} ₽</span>
+                    <span class="hover-text">{{service.price}} ₽</span>
                 </div>
 
 
             {% endfor %}
 
             <hr>
-            <p><span class="service-title">Итого</span> <span class="service-price">{{total}} ₽</span></p>
+            <p><span class="service-title">Итого</span> <span class="hover-text">{{total}} ₽</span></p>
         </div>
     </div>
 
+    {% if not is_post %}
     <form class="strap" action="" method="post">
         {% csrf_token %}
         <h2>Ваши данные</h2>
 
         <div class="input-group">
             <label for="name">Имя *</label>
-            <input type="text" id="name" name="username" value="{{ username }}" placeholder="Введите имя" required>
+            <input type="text" id="name" name="username" value="{{ user.first_name }} {{ user.last_name }}" placeholder="Введите имя" required>
         </div>
 
         <div class="input-group">
             <label for="phone">Телефона *</label>
-            <input type="tel" id="phone" name="phone" value="{{ phone }}" placeholder="Номер телефона" required>
+            <input type="tel" id="phone" name="phone" value="{{ user.phone_number }}" placeholder="Номер телефона" required>
         </div>
 
         <div class="input-group">
             <label for="comment">Комментарий к записи</label>
-            <textarea type="tel" id="comment" name="comment" placeholder="Комментарий к записи"></textarea>
+            <textarea type="text" id="comment" name="comment" placeholder="Комментарий к записи"></textarea>
         </div>
 
         <button class="button" type="submit">Записаться</button>
     </form>
+    {% endif %}
 </div>
 
 

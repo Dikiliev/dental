@@ -173,6 +173,7 @@ function refreshTimes(){
 }
 
 function setTime(date){
+    console.log(`set date from ${selectedDate} to ${date}`);
     selectedDate = date;
     refreshTimes();
 }

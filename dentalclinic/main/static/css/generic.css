@@ -39,6 +39,20 @@ a{
     margin: auto;
 }
 
+.justify-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+}
+
+.w100{
+    width: 100%;
+}
+
+
 .horizontal-container{
     display: flex;
     flex-direction: row;
@@ -147,6 +161,33 @@ form a:hover{
 .disabled {
     display: none;
     opacity: 0;
+}
+
+.mini-avatar{
+    height: 50px;
+    border-radius: 100px;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    width: 100%;
+    margin: auto;
+}
+
+.transparent-text{
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-transparent)
+}
+
+.card-info{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
 }
 
 .strap{

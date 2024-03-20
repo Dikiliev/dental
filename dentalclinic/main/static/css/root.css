@@ -82,6 +82,7 @@ button:disabled:hover{
 }
 
 footer{
+    margin-top: 50px;
     min-height: 200px;
     background-color: var(--background-color-1);
 }

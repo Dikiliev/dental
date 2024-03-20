@@ -1,0 +1,61 @@
+{% extends  "base.html" %}
+
+{% load static %}
+
+{% block head  %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/appointmenting.css' %}">
+<link type="text/css" rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content  %}
+
+<br><br>
+<div class="container">
+    <div class="strap">
+
+        <h1>Ваши записи</h1>
+
+        {% for order in orders %}
+
+        <div class="card">
+
+            <img class="mini-avatar" src="{{order.dentist.get_avatar_url}}">
+            <div class="card-info">
+                <p class="transparent-text">{{order.get_date_by_str.week}}, {{order.get_date_by_str.day}} {{order.get_date_by_str.month}}, {{order.get_date_by_str.time}}</p>
+                <span class="work-title">{{order.dentist.first_name}} {{order.dentist.last_name}}</span>
+
+                <div class="selected-services">
+
+                    {% for appointment_service in order.appointment_services.all %}
+
+                    <div class="card-info">
+                        <span class="transparent-text">- {{appointment_service.service.title}}&nbsp;&nbsp;<span class="transparent-text">{{appointment_service.service.duration}} мин.</span></span>
+                    </div>
+
+                    {% endfor %}
+                    <br>
+                    <div class="justify-content">
+                        <p><span class="hover-text">{{order.get_total_price}} ₽</span></p>
+                        <p>Статус: <span class="hover-text">{{order.get_order_status_display}}</span></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <hr>
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{% static 'js/completion_appointment.js' %}"></script>
+
+<script>
+
+</script>
+
+{% endblock %}
+

@@ -11,9 +11,6 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
 
         return result
 
-    def get_appointments_in(d: date):
-        return list(filter(lambda x: x[0].date() == d, appointments))
-
     def get_correct_next_time(value: date):
         if value == date.today():
             return 'сегодня'
@@ -23,10 +20,10 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
         return f'{value.day} ' + get_month(value)
 
     dt = round_datetime(datetime.now())
-    result = get_free_times_in_day(dt.date(), get_appointments_in(dt.date()), max(start_time, dt.time()), end_time)
+    result = get_free_times_in_day(dt.date(), filter_appointments(dt.date(), appointments), max(start_time, dt.time()), end_time)
     while not result:
         dt += timedelta(days=1)
-        result = get_free_times_in_day(dt.date(), get_appointments_in(dt.date()), start_time, end_time)
+        result = get_free_times_in_day(dt.date(), filter_appointments(dt.date(), appointments), start_time, end_time)
 
     return get_correct_next_time(dt.date()), [datetime.combine(dt, t) for t in result]
 
@@ -55,3 +52,7 @@ def get_month(date: datetime):
 
 def get_week(date: datetime):
     return ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"][date.weekday()]
+
+
+def filter_appointments(d: date, appointments):
+    return list(filter(lambda x: x[0].date() == d, appointments))

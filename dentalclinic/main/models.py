@@ -78,6 +78,7 @@ class User(AbstractUser):
             raise Exception('У специалиста отсутвует специализация (Profile)')
 
         appointments = self.get_appointment_by_list()
+        appointments = list(filter(lambda x: x[0].date() == date, appointments))
 
         result = utils.get_free_times_in_day(date, appointments, profile.start_time, profile.end_time)
         return result
@@ -112,7 +113,7 @@ class Service(models.Model):
 
 class Appointment(models.Model):
     ORDER_STATUS_CHOICES = (
-        (1, 'Создана'),
+        (1, 'Создан'),
         (2, 'Принято'),
         (3, 'В процессе'),
         (4, 'Выполнен'),
@@ -128,14 +129,27 @@ class Appointment(models.Model):
     order_status = models.IntegerField(default=1, choices=ORDER_STATUS_CHOICES, verbose_name='Статус')
     date_time = models.DateTimeField()
 
+    user_name = models.CharField(max_length=150, blank=True)
+    user_phone = models.CharField(max_length=25, blank=True)
+    user_comment = models.TextField(blank=True)
+
     def __str__(self):
-        return f'Заказ #{self.order_number}; {[a.service.title for a in self.appointments.all()]} ({self.get_duration()}m)'
+        return f'Заказ #{self.order_number}; {[a.service.title for a in self.appointment_services.all()]} ({self.get_duration()}m)'
 
     def generate_order_number(self):
         while True:
             order_number = random.randint(10000, 99999)
             if not Appointment.objects.filter(order_number=order_number).exists():
                 return order_number
+
+    def get_date_by_str(self):
+        return {
+            'date': self.date_time,
+            'day': self.date_time.day,
+            'week': utils.get_week(self.date_time),
+            'month': utils.get_month(self.date_time),
+            'time': self.date_time.strftime('%H:%M')
+        }
 
     def save(self, *args, **kwargs):
         if not self.order_number:
@@ -145,14 +159,22 @@ class Appointment(models.Model):
     def get_duration(self):
         total = 0
 
-        for appointment in self.appointments.all():
+        for appointment in self.appointment_services.all():
             total += appointment.service.duration
 
         return total
 
+    def get_total_price(self):
+        total_price = 0
+
+        for appointment in self.appointment_services.all():
+            total_price += appointment.service.price
+
+        return total_price
+
 
 class AppointmentService(models.Model):
-    appointment = models.ForeignKey(Appointment, related_name='appointments', on_delete=models.CASCADE)
+    appointment = models.ForeignKey(Appointment, related_name='appointment_services', on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
