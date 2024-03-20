@@ -163,9 +163,21 @@ form a:hover{
     opacity: 0;
 }
 
+.mini-avatar, .profile-avatar{
+    aspect-ratio: 1 / 1;
+    border-radius: 100px;
+}
+
 .mini-avatar{
     height: 50px;
-    border-radius: 100px;
+}
+
+.profile-avatar{
+    height: 30px;
+    width: 30px;
+
+    /*border: 1px solid var(--color-1);*/
+
 }
 
 .card{

@@ -10,6 +10,7 @@
     <link type="text/css" rel="stylesheet" href="{% static 'css/head.css' %}">
     <link type="text/css" rel="stylesheet" href="{% static 'css/icons.css' %}">
     <script type="text/javascript" src="{% static 'js/base_script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/head.js' %}" defer></script>
 
     {% block head  %}
 
@@ -36,12 +37,28 @@
         <nav class="nav-menu horizontal-container">
             {% if user.is_authenticated %}
 
-                <a href="/logout" class="nav-item profile-text">{{ user.username }}</a>
+            <a href="/login" class="nav-item">Мои записи</a>
+<!--            <a href="/logout" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}">{{ user.username }}</a>-->
+<!--            <a id="profile-nav" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}"></a>-->
+
+            <div id="profile-nav" class="dropdown">
+                <a id="" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}"></a>
+                <div id="side-menu" class="side-menu">
+                <ul>
+                    <li><a class="" href="#">Редактировать</a></li>
+                    <li><a class="" href="#">Настройки</a></li>
+                    <li><a class="" href="#">Выйти</a></li>
+                </ul>
+                </div>
+            </div>
+
+
+
 
             {% else %}
 
-                <a href="/login" class="nav-item">Войти</a>
-                <a href="/register" class="nav-item">Зарегистрироваться</a>
+            <a href="/login" class="nav-item">Войти</a>
+            <a href="/register" class="nav-item">Зарегистрироваться</a>
 
             {% endif %}
         </nav>
