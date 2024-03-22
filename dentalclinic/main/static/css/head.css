@@ -109,6 +109,14 @@
     padding: 10px;
 }
 
+.side-menu ul li.first{
+    text-align: center;
+}
+
+.side-menu ul li.first:hover{
+    background: var(--background-color-1);
+}
+
 .side-menu ul li:hover{
     background: var(--background-color-2);
 }
