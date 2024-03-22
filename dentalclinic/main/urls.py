@@ -14,7 +14,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('catalog/', views.catalog, name='catalog'),
     path('orders/', views.orders, name='orders'),
-
+    path('profile/', views.profile_edits, name='profile'),
 
     path(f'select_specialist/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<dt>', views.select_specialist,
          name='select-specialist'),

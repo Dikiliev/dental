@@ -128,6 +128,21 @@ def orders(request: HttpRequest):
     return render(request, 'orders.html', data)
 
 
+@login_required
+def profile_edits(request: HttpRequest):
+    data = create_base_data()
+
+    def get():
+        return render(request, 'profile.html', data)
+    def post():
+        return render(request, 'profile.html', data)
+
+    if request.method == 'POST':
+        return post()
+
+    return get()
+
+
 @csrf_exempt
 def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: int):
     data = dict()
