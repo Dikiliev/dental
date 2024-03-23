@@ -91,7 +91,7 @@ option{
     outline: none;
     color: var(--color-1);
     background-color: var(--background-color-2);
-    border-radius: calc(var(--base-border-radius) / 2);
+    border-radius: var(--small-border-radius);
     border: 0px solid var(--color-1);
 
     padding: 12px;
@@ -113,6 +113,16 @@ form a{
 }
 form a:hover{
     color: var(--color-hover-1);
+}
+
+.input-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: var(--background-color-2);
+    border-radius: var(--small-border-radius);
+    padding: 12px;
 }
 
 .button{

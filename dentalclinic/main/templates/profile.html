@@ -8,12 +8,55 @@
 <div class="container">
 
     <form class="" action="" method="post">
-        <h1>Регистрация</h1>
+        <h1>Анкета</h1>
         {% csrf_token %}
 
         <div class="input-group">
-            <label for="username">Имя пользователя:</label>
-            <input type="text" id="username" name="username" value="{{ username }}" required>
+            <label for="specialization">Спецаильность:</label>
+            <select name="specialization" id="specialization" required>
+
+                {% for specialization in specializations %}
+
+                {% if specialization == user.profile.specialization %}
+
+                <option selected value="1">{{specialization}}</option>
+
+                {% else %}
+
+                <option value="1">{{specialization}}</option>
+
+                {% endif %}
+
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Какие работы вы берете?</label>
+            <div class="input-list">
+
+
+                {% for service in services %}
+
+                {% if service in selected_services %}
+                 <label class="custom-checkbox">
+                    <input checked type="checkbox" name="services" value="{{service}}">
+                     <span class="checkmark"></span>
+                    {{service}}
+                </label>
+                {% else %}
+                <label class="custom-checkbox">
+                    <input type="checkbox" name="services" value="{{service}}">
+                     <span class="checkmark"></span>
+                    {{service}}
+                </label>
+                {% endif %}
+
+
+                {% endfor %}
+
+            </div>
         </div>
 
         <div class="input-group">
@@ -37,11 +80,6 @@
                 <option value="1">Пользователь</option>
                 <option value="2">Доктор</option>
             </select>
-        </div>
-
-        <div class="input-group">
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" required>
         </div>
 
         <p class="error">{{ error }}</p>

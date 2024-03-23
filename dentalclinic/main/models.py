@@ -84,9 +84,16 @@ class User(AbstractUser):
         return result
 
 
+class Specialization(models.Model):
+    title = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    specialization = models.CharField(max_length=100, blank=True)
+    specialization = models.ForeignKey(Specialization, default=1, related_name='profiles', on_delete=models.CASCADE)
     contact_info = models.TextField(blank=True)
 
     description = models.TextField(verbose_name='Краткое портфолио')

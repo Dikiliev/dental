@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Profile, Appointment, Service, AppointmentService
+from .models import *
 from .converters import IntListConverter, DateTimeConverter
 from .utils import *
 
@@ -133,7 +133,13 @@ def profile_edits(request: HttpRequest):
     data = create_base_data()
 
     def get():
+        user = request.user
+
+        data['specializations'] = Specialization.objects.all()
+        data['services'] = Service.objects.all()
+        data['selected_services'] = user.profile.services.all()
         return render(request, 'profile.html', data)
+
     def post():
         return render(request, 'profile.html', data)
 
