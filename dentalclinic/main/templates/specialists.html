@@ -1,10 +1,8 @@
 {% extends  "appointmenting.html" %}
 
-{% load static %}
-
 {% block twostyles  %}
-<link type="text/css" rel="stylesheet" href="{% static 'css/specialists.css' %}">
-<script type="text/javascript" src="{% static 'js/select_specialists.js' %}" defer></script>
+<link type="text/css" rel="stylesheet" href="{{ static('css/specialists.css') }}">
+<script type="text/javascript" src="{{ static('js/select_specialists.js') }}" defer></script>
 
 <script>
     const current_page = 0;
@@ -21,7 +19,7 @@
 
     <div id="worker-card-{{worker.id}}" class="worker-card">
         <div class="worker">
-            <img src="{{worker.get_avatar_url}}">
+            <img src="{{worker.get_avatar_url()}}">
             <div class="worker-info">
                 <span class="transparent-text">@{{worker.username}}</span>
                 <span class="title-specialist">{{worker.first_name}} {{worker.last_name}}</span>
@@ -30,10 +28,10 @@
             </div>
         </div>
 
-        <span>Ближайшее время для записи {{worker.get_free_times.date_str}}:</span>
+        <span>Ближайшее время для записи {{worker.get_free_times().date_str}}:</span>
         <div class="buttons">
 
-            {% for time in worker.get_free_times.times %}
+            {% for time in worker.get_free_times().times %}
             <button  name="{{time.datetime}}" class="time-button">{{time.time_str}}</button>
             {% endfor%}
         </div>

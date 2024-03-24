@@ -1,29 +1,24 @@
-{% load static %}
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link type="text/css" rel="stylesheet" href="{% static 'css/root.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/generic.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/head.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/icons.css' %}">
-    <script type="text/javascript" src="{% static 'js/base_script.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/head.js' %}" defer></script>
+    <link type="text/css" rel="stylesheet" href="{{ static('css/root.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static('css/generic.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static('css/head.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static('css/icons.css') }}">
+    <script type="text/javascript" src="{{ static('js/base_script.js') }}"></script>
+    <script type="text/javascript" src="{{ static('js/head.js') }}" defer></script>
+
 
     {% block head  %}
 
     {% endblock %}
 
     <style>
-        {% load static %}
 
-        :root {
-            --icon-like: url('{% static "images/like-inactive.png" %}');
-            --icon-like-active: url('{% static "images/like-active.png" %}');
-            --check-mark: url('{% static "images/check_mark_icon.svg" %}');
-        }
     </style>
 
 </head>
@@ -32,7 +27,7 @@
 <div class="head">
     <div class="head-content horizontal-container">
         <div class="logo">
-            <span class="text-logo-part-1">Dental</span><span class="text-logo-part-2">Clinic</span>
+            <a href="/"><span class="text-logo-part-1">Dental</span><span class="text-logo-part-2">Clinic</span></a>
         </div>
         <nav class="nav-menu horizontal-container">
             {% if user.is_authenticated %}
@@ -42,7 +37,7 @@
 <!--            <a id="profile-nav" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}"></a>-->
 
             <div id="profile-nav" class="dropdown">
-                <a id="" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}"></a>
+                <a id="" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url()}}"></a>
                 <div id="side-menu" class="side-menu">
                 <ul>
                     <li class="first"><a class="profile-text" href="#">{{ user.username }}</a></li>

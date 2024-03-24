@@ -1,9 +1,7 @@
 {% extends  "base.html" %}
 
-{% load static %}
-
 {% block head  %}
-<link type="text/css" rel="stylesheet" href="{% static 'css/appointmenting.css' %}">
+<link type="text/css" rel="stylesheet" href="{{ static('css/appointmenting.css') }}">
 
 <script>
     let selectedSpecialistId = {{specialist_id}};
@@ -38,7 +36,7 @@
     <button id="date-button" class="switch-button">Выбрать время</button>
 </div>
 
-<script type="text/javascript" src="{% static 'js/appointmenting.js' %}"></script>
+<script type="text/javascript" src="{{ static('js/appointmenting.js') }}"></script>
 
 <br><br>
 <div class="container">

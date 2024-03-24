@@ -1,10 +1,9 @@
 {% extends  "base.html" %}
 
-{% load static %}
 
 {% block head  %}
-<link type="text/css" rel="stylesheet" href="{% static 'css/appointmenting.css' %}">
-<link type="text/css" rel="stylesheet" href="{% static 'css/orders.css' %}">
+<link rel="stylesheet" href="{{ static('css/appointmenting.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ static('css/orders.css') }}">
 {% endblock %}
 
 {% block content  %}
@@ -17,16 +16,23 @@
 
         {% for order in orders %}
 
+        {% if user.role == 1 %}
+        {% set view_person = order.user %}
+        {% else %}
+        {% set view_person = order.user %}
+        {% endif %}
+
+
         <div class="card">
 
-            <img class="mini-avatar" src="{{order.dentist.get_avatar_url}}">
+            <img class="mini-avatar" src="{{view_person.get_avatar_url()}}">
             <div class="card-info">
-                <p class="transparent-text">{{order.get_date_by_str.week}}, {{order.get_date_by_str.day}} {{order.get_date_by_str.month}}, {{order.get_date_by_str.time}}</p>
-                <span class="work-title">{{order.dentist.first_name}} {{order.dentist.last_name}}</span>
+                <p class="transparent-text">{{order.get_date_by_str().week}}, {{order.get_date_by_str().day}} {{order.get_date_by_str().month}}, {{order.get_date_by_str().time}}</p>
+                <span class="work-title">{{view_person.first_name}} {{view_person.last_name}}</span>
 
                 <div class="selected-services">
 
-                    {% for appointment_service in order.appointment_services.all %}
+                    {% for appointment_service in order.appointment_services.all() %}
 
                     <div class="card-info">
                         <span class="transparent-text">- {{appointment_service.service.title}}&nbsp;&nbsp;<span class="transparent-text">{{appointment_service.service.duration}} мин.</span></span>
@@ -35,8 +41,8 @@
                     {% endfor %}
                     <br>
                     <div class="justify-content">
-                        <p><span class="hover-text">{{order.get_total_price}} ₽</span></p>
-                        <p>Статус: <span class="hover-text">{{order.get_order_status_display}}</span></p>
+                        <p><span class="hover-text">{{order.get_total_price()}} ₽</span></p>
+                        <p>Статус: <span class="hover-text">{{order.get_order_status_display()}}</span></p>
                     </div>
 
                 </div>
@@ -51,7 +57,7 @@
 </div>
 
 
-<script type="text/javascript" src="{% static 'js/completion_appointment.js' %}"></script>
+<script type="text/javascript" src="static('js/completion_appointment.js') }}"></script>
 
 <script>
 

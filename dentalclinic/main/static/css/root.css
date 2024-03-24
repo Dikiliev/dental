@@ -82,10 +82,18 @@ button:disabled:hover{
     cursor: default;
 }
 
+img{
+    object-fit: cover;
+}
+
 footer{
     margin-top: 50px;
     min-height: 200px;
     background-color: var(--background-color-1);
+}
+
+.success{
+    color: var(--color-hover-1);
 }
 
 /* CHECKBOX */

@@ -4,6 +4,7 @@ import json
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+from django.template import engines
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
@@ -15,20 +16,20 @@ DEFAULT_TITLE = 'DentalClinic'
 
 
 def home(request: HttpRequest):
-    data = create_base_data('Home')
+    data = create_base_data(request)
     return redirect('/select_specialist/m-1s-1d-1')
     return render(request, 'index.html', data)
 
 
 def catalog(request: HttpRequest):
-    data = create_base_data('Каталог')
+    data = create_base_data(request)
     data['workers'] = User.objects.filter(role=2)
 
     return render(request, 'catalog.html', data)
 
 
 def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
-    data = create_base_data()
+    data = create_base_data(request)
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
     data['date'] = dt
@@ -38,7 +39,7 @@ def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [in
 
 
 def select_service(request: HttpRequest, specialist_id: str, service_ids: [int], dt: datetime):
-    data = create_base_data()
+    data = create_base_data(request)
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
     data['date'] = dt
@@ -53,7 +54,7 @@ def select_service(request: HttpRequest, specialist_id: str, service_ids: [int],
 
 
 def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
-    data = create_base_data()
+    data = create_base_data(request)
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
     data['date'] = dt
@@ -62,7 +63,7 @@ def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt
 
 
 def completion_appointment(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
-    data = create_base_data()
+    data = create_base_data(request)
 
     specialist = User.objects.filter(id=specialist_id)
     if specialist:
@@ -121,26 +122,53 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
 
 @login_required
 def orders(request: HttpRequest):
-    data = create_base_data()
+    data = create_base_data(request)
 
-    data['orders'] = Appointment.objects.filter(user_id=request.user.id)
+    if request.user.role == 1:
+        data['orders'] = Appointment.objects.filter(user_id=request.user.id)
+    else:
+        data['orders'] = Appointment.objects.filter(dentist_id=request.user.id)
+
+    jinja2_engine = engines['jinja2']
+    template = jinja2_engine.get_template('orders.html')
+    rendered_template = template.render(data)
+    return HttpResponse(rendered_template)
 
     return render(request, 'orders.html', data)
 
 
 @login_required
 def profile_edits(request: HttpRequest):
-    data = create_base_data()
+    data = create_base_data(request, )
+
+    user = request.user
+
+    data['specializations'] = Specialization.objects.all()
+    data['services'] = Service.objects.all()
+    data['selected_services'] = user.profile.services.all()
 
     def get():
-        user = request.user
-
-        data['specializations'] = Specialization.objects.all()
-        data['services'] = Service.objects.all()
-        data['selected_services'] = user.profile.services.all()
         return render(request, 'profile.html', data)
 
     def post():
+        post_data = request.POST
+        uploaded_image = request.FILES.get('image_file', None)
+
+        if uploaded_image:
+            user.avatar = uploaded_image
+
+        services = Service.objects.filter(title__in=post_data.getlist('services', []))
+        user.profile.services.set(services)
+
+        user.phone_number = post_data.get('phone', '')
+        user.profile.specialization = Specialization.objects.get(id=post_data.get('specialization', ''))
+        user.profile.description = post_data.get('description', '')
+
+        user.profile.save()
+        user.save()
+
+        data['message'] = 'Сохранено!'
+
         return render(request, 'profile.html', data)
 
     if request.method == 'POST':
@@ -168,7 +196,7 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
 
 
 def register(request: HttpRequest):
-    data = create_base_data('Регистрация')
+    data = create_base_data(request, 'Регистрация')
 
     def get():
         return render(request, 'registration/register.html', data)
@@ -216,7 +244,7 @@ def register(request: HttpRequest):
 
 
 def user_login(request: HttpRequest):
-    data = create_base_data('Вход')
+    data = create_base_data(request, 'Вход')
 
     def get():
         return render(request, 'registration/login.html')
@@ -242,13 +270,12 @@ def logout_user(request: HttpRequest):
 
 
 # Help functions
-def create_base_data(title: str = None):
+def create_base_data(request: HttpRequest, title: str = None):
     if not title:
         title = DEFAULT_TITLE
 
     return {
+        'user': request.user,
         'title': title,
     }
 
-def test_page(request: HttpRequest, num=12):
-    return HttpResponse(f't: {num}')

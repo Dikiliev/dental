@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -58,6 +58,14 @@ ROOT_URLCONF = 'dentalclinic.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'main\\templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'environment': 'my_jinja2.environment',
+        },
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
@@ -70,12 +78,7 @@ TEMPLATES = [
             ],
         },
     },
-    {
-        "BACKEND": "django.template.backends.jinja2.Jinja2",
-        "DIRS": [
-            "/home/html/jinja2",
-        ],
-    },
+
 ]
 
 WSGI_APPLICATION = 'dentalclinic.wsgi.application'

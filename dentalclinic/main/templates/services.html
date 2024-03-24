@@ -1,9 +1,7 @@
 {% extends  "appointmenting.html" %}
 
-{% load static %}
-
 {% block twostyles  %}
-<link type="text/css" rel="stylesheet" href="{% static 'css/services.css' %}">
+<link type="text/css" rel="stylesheet" href="{{ static('css/services.css') }}">
 
 <script>
     const current_page = 1;
@@ -25,7 +23,7 @@
         </div>
         <div class="service-right">
             <button class="select-button">
-                <img class="check-mark-img" src="{% static '/images/check_mark_icon.svg' %}">
+                <img class="check-mark-img" src="{{ static('images/check_mark_icon.svg') }}">
             </button>
         </div>
     </div>
@@ -37,7 +35,7 @@
     <span class="service-title">Сумма: 3000</span>
     <button id="next-button" class="button">Выбрать время</button>
 </div>
-<script type="text/javascript" src="{% static 'js/select_service.js' %}"></script>
+<script type="text/javascript" src="{{ static('js/select_service.js') }}"></script>
 
 <script>
     let services = {

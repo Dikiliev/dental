@@ -1,5 +1,11 @@
 {% extends  "base.html" %}
 
+{% block head  %}
+
+<script type="text/javascript" src="{{ static('js/image_upload.js')}}" defer></script>
+
+{% endblock %}
+
 {% block content  %}
 
 <br>
@@ -7,9 +13,9 @@
 
 <div class="container">
 
-    <form class="" action="" method="post">
+    <form class="" action="" method="post" enctype="multipart/form-data">
         <h1>Анкета</h1>
-        {% csrf_token %}
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
         <div class="input-group">
             <label for="specialization">Спецаильность:</label>
@@ -19,17 +25,25 @@
 
                 {% if specialization == user.profile.specialization %}
 
-                <option selected value="1">{{specialization}}</option>
+                <option selected value="{{specialization.id}}">{{specialization}}</option>
 
                 {% else %}
 
-                <option value="1">{{specialization}}</option>
+                <option value="{{specialization.id}}">{{specialization}}</option>
 
                 {% endif %}
 
                 {% endfor %}
 
             </select>
+        </div>
+
+
+
+        <div class="upload-section">
+            <img id="image-show" class="uploaded-image" src="{{ user.get_avatar_url() }}">
+            <input type="file"  name="image_file" accept="image/*" id="file-upload" class="file-input" style="display: none;">
+            <label for="file-upload" class="text-button">Загрузить аватарку</label>
         </div>
 
         <div class="input-group">
@@ -60,31 +74,20 @@
         </div>
 
         <div class="input-group">
-            <label for="first_name">Имя:</label>
-            <input type="text" id="first_name" name="first_name" value="{{ first_name }}" required>
+            <label for="description">Кратское портфолио:</label>
+            <textarea type="text" id="description" name="description" placeholder="Пример: Опытный хирург, специализирующийся на сложных операциях в полости рта" required>{{ user.profile.description }}</textarea>
         </div>
 
         <div class="input-group">
-            <label for="last_name">Фамилия:</label>
-            <input type="text" id="last_name" name="last_name" value="{{ last_name }}" required>
+            <label for="phone">Номер рабочего телефона:</label>
+            <input type="tel" id="phone" name="phone" value="{{ user.phone_number }}" placeholder="+7 999 999 99 99" required>
         </div>
 
-        <div class="input-group">
-            <label for="phone">Номер телефона:</label>
-            <input type="tel" id="phone" name="phone" value="{{ phone }}" required>
-        </div>
+        {% if message %}
+        <p class="success">{{ message }}</p>
+        {% endif %}
 
-        <div class="input-group">
-            <label for="category">Категория:</label>
-            <select name="category" id="category" required>
-                <option value="1">Пользователь</option>
-                <option value="2">Доктор</option>
-            </select>
-        </div>
-
-        <p class="error">{{ error }}</p>
-        <button class="button" type="submit">Зарегистрироваться</button>
-        <a href="/login">Уже зарегестрированы? Войти</a>
+        <button class="button" type="submit">Сохранить</button>
 
     </form>
 </div>
