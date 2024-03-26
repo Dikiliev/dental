@@ -4,14 +4,6 @@ body{
 }
 
 main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin: auto;
-    padding: 20px;
-
-    max-width: var(--max-width);
     min-height: 90vh;
 }
 
