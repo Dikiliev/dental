@@ -136,9 +136,10 @@ class Appointment(models.Model):
     order_status = models.IntegerField(default=1, choices=ORDER_STATUS_CHOICES, verbose_name='Статус')
     date_time = models.DateTimeField()
 
-    user_name = models.CharField(max_length=150, blank=True)
+    full_name = models.CharField(max_length=150, blank=True)
     user_phone = models.CharField(max_length=25, blank=True)
     user_comment = models.TextField(blank=True)
+    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'Заказ #{self.order_number}; {[a.service.title for a in self.appointment_services.all()]} ({self.get_duration()}m)'

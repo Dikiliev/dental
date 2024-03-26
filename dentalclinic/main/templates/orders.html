@@ -17,18 +17,22 @@
         {% for order in orders %}
 
         {% if user.role == 1 %}
-        {% set view_person = order.user %}
+        {% set full_name = order.dentist.first_name + " " + order.dentist.last_name %}
         {% else %}
-        {% set view_person = order.user %}
+        {% set full_name = order.full_name %}
         {% endif %}
 
 
         <div class="card">
 
-            <img class="mini-avatar" src="{{view_person.get_avatar_url()}}">
+            {% if user.role == 1 %}
+            <img class="mini-avatar" src="{{order.dentist.get_avatar_url()}}">
+            {% else %}
+            <img class="mini-avatar" src="{{order.user.get_avatar_url()}}">
+            {% endif %}
             <div class="card-info">
                 <p class="transparent-text">{{order.get_date_by_str().week}}, {{order.get_date_by_str().day}} {{order.get_date_by_str().month}}, {{order.get_date_by_str().time}}</p>
-                <span class="work-title">{{view_person.first_name}} {{view_person.last_name}}</span>
+                <span class="work-title">{{full_name}}</span>
 
                 <div class="selected-services">
 

@@ -130,6 +130,7 @@ form a:hover{
     padding: 10px;
     outline:none;
     font-size: 20px;
+    text-align: center;
 
     border-radius: calc(var(--base-border-radius) / 2);
     border: none;

@@ -16,9 +16,10 @@ DEFAULT_TITLE = 'DentalClinic'
 
 
 def home(request: HttpRequest):
-    data = create_base_data(request)
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     return redirect('/select_specialist/m-1s-1d-1')
-    return render(request, 'index.html', data)
 
 
 def catalog(request: HttpRequest):
@@ -28,6 +29,7 @@ def catalog(request: HttpRequest):
     return render(request, 'catalog.html', data)
 
 
+@login_required
 def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
     data = create_base_data(request)
     data['specialist_id'] = specialist_id
@@ -38,6 +40,7 @@ def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [in
     return render(request, 'specialists.html', data)
 
 
+@login_required
 def select_service(request: HttpRequest, specialist_id: str, service_ids: [int], dt: datetime):
     data = create_base_data(request)
     data['specialist_id'] = specialist_id
@@ -53,6 +56,7 @@ def select_service(request: HttpRequest, specialist_id: str, service_ids: [int],
     return render(request, 'services.html', data)
 
 
+@login_required
 def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
     data = create_base_data(request)
     data['specialist_id'] = specialist_id
@@ -62,6 +66,7 @@ def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt
     return render(request, 'select_date.html', data)
 
 
+@login_required
 def completion_appointment(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
     data = create_base_data(request)
 
@@ -95,11 +100,12 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
         post_data = request.POST
 
         appointment = Appointment()
-        appointment.user = request.user
+
         appointment.dentist = User.objects.get(id=specialist_id)
+        appointment.user = request.user
         appointment.date_time = dt
 
-        appointment.user_name = post_data.get('name', '')
+        appointment.full_name = post_data.get('full_name', '')
         appointment.user_phone = post_data.get('phone', '')
         appointment.user_comment = post_data.get('comment', '')
 
@@ -125,9 +131,9 @@ def orders(request: HttpRequest):
     data = create_base_data(request)
 
     if request.user.role == 1:
-        data['orders'] = Appointment.objects.filter(user_id=request.user.id)
+        data['orders'] = Appointment.objects.filter(user_id=request.user.id).order_by('create_date')
     else:
-        data['orders'] = Appointment.objects.filter(dentist_id=request.user.id)
+        data['orders'] = Appointment.objects.filter(dentist_id=request.user.id).order_by('create_date')
 
     jinja2_engine = engines['jinja2']
     template = jinja2_engine.get_template('orders.html')
@@ -197,8 +203,14 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
 
 def register(request: HttpRequest):
     data = create_base_data(request, 'Регистрация')
+    data['username'] = ''
+    data['email'] = ''
+    data['first_name'] = ''
+    data['last_name'] = ''
+    data['phone'] = ''
 
     def get():
+        print(data)
         return render(request, 'registration/register.html', data)
 
     def post():
@@ -206,6 +218,8 @@ def register(request: HttpRequest):
 
         user = User()
         user.username = post_data.get('username', '')
+        user.first_name = post_data.get('first_name', '')
+        user.last_name = post_data.get('last_name', '')
         user.phone_number = post_data.get('phone', '')
         user.address = post_data.get('address', '')
         user.role = post_data.get('category', '')
@@ -214,6 +228,9 @@ def register(request: HttpRequest):
 
         data['username'] = user.username
         data['email'] = user.email
+        data['first_name'] = user.first_name
+        data['last_name'] = user.last_name
+        data['phone'] = user.phone_number
 
         def check_validate():
             if len(user.username) < 3:
@@ -247,7 +264,7 @@ def user_login(request: HttpRequest):
     data = create_base_data(request, 'Вход')
 
     def get():
-        return render(request, 'registration/login.html')
+        return render(request, 'registration/login.html', data)
 
     def post():
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])

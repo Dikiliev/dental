@@ -23,7 +23,7 @@
                 </div>
                 <h1>Вы записаны</h1>
                 <p class="service-title">{{date.week}}, {{date.day}} {{date.month}}, {{date.time}}</p>
-                <button class="button">Записаться еще</button>
+                <a href='/select_specialist/m-1s-1d-1' class="button">Записаться еще</a>
             </div>
 
 
@@ -80,8 +80,8 @@
         <h2>Ваши данные</h2>
 
         <div class="input-group">
-            <label for="name">Имя *</label>
-            <input type="text" id="name" name="username" value="{{ user.first_name }} {{ user.last_name }}" placeholder="Введите имя" required>
+            <label for="full_name">Имя *</label>
+            <input type="text" id="full_name" name="full_name" value="{{ user.first_name }} {{ user.last_name }}" placeholder="Введите имя" required>
         </div>
 
         <div class="input-group">
