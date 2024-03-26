@@ -56,6 +56,7 @@ class User(AbstractUser):
 
         appointments = self.get_appointment_by_list()
 
+
         result = utils.get_free_times(appointments, profile.start_time, profile.end_time)[:6]
 
         result = {
@@ -65,7 +66,6 @@ class User(AbstractUser):
                 'time_str': result[1][i].strftime("%H:%M")
             } for i in range(min(len(result[1]), 6))],
         }
-
         return result
 
     def get_free_times_in_day(self, date):
@@ -142,7 +142,7 @@ class Appointment(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Заказ #{self.order_number}; {[a.service.title for a in self.appointment_services.all()]} ({self.get_duration()}m)'
+        return f'Заказ #{self.order_number} на {self.dentist}; {[a.service.title for a in self.appointment_services.all()]} ({self.get_duration()}m)'
 
     def generate_order_number(self):
         while True:

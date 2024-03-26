@@ -263,11 +263,13 @@ def register(request: HttpRequest):
 def user_login(request: HttpRequest):
     data = create_base_data(request, 'Вход')
 
+
     def get():
         return render(request, 'registration/login.html', data)
 
     def post():
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        data['username'] = request.POST['username']
 
         if user is not None:
             login(request, user)
