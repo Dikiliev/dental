@@ -270,8 +270,13 @@ def register(request: HttpRequest):
 def user_login(request: HttpRequest):
     data = create_base_data(request, 'Вход')
 
-
     def get():
+
+        jinja2_engine = engines['jinja2']
+        template = jinja2_engine.get_template('registration/login.html')
+        rendered_template = template.render(data)
+        return HttpResponse(rendered_template)
+
         return render(request, 'registration/login.html', data)
 
     def post():
