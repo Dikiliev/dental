@@ -29,6 +29,7 @@ urlpatterns = [
          name='completion-appointment'),
 
     path(f'get_times/<int:specialist_id>/<int:year>/<int:month>/<int:day>', views.get_times, name='get-times'),
+    path(f'set_order_status/', views.set_order_status, name='get-times'),
 
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),

@@ -131,14 +131,9 @@ def orders(request: HttpRequest):
     data = create_base_data(request)
 
     if request.user.role == 1:
-        data['orders'] = Appointment.objects.filter(user_id=request.user.id).order_by('create_date')
+        data['orders'] = Appointment.objects.filter(user_id=request.user.id).order_by('-create_date')
     else:
-        data['orders'] = Appointment.objects.filter(dentist_id=request.user.id).order_by('create_date')
-
-    jinja2_engine = engines['jinja2']
-    template = jinja2_engine.get_template('orders.html')
-    rendered_template = template.render(data)
-    return HttpResponse(rendered_template)
+        data['orders'] = Appointment.objects.filter(dentist_id=request.user.id).order_by('-create_date')
 
     return render(request, 'orders.html', data)
 
@@ -183,7 +178,6 @@ def profile_edits(request: HttpRequest):
     return get()
 
 
-@csrf_exempt
 def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: int):
     data = dict()
     data['message'] = 'success'
@@ -199,6 +193,19 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
     data['times'] = [t.strftime("%H:%M") for t in times]
 
     return JsonResponse(data)
+
+
+@login_required()
+def set_order_status(request: HttpRequest):
+    try:
+        data = json.loads(request.body)
+        order = Appointment.objects.get(id=data['id'])
+        order.order_status = data['value']
+        order.save()
+        return JsonResponse({'message': 'success'})
+    except Exception as err:
+        print(f'ERROR: {err}')
+        return JsonResponse({'message': err})
 
 
 def register(request: HttpRequest):

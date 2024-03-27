@@ -1,31 +1,4 @@
-.switch-buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 
-    max-width: var(--max-width);
-    margin: 0 auto;
-    gap: 5px;
-
-    background-color: var(--background-color-1);
-    border-radius: var(--base-border-radius);
-    overflow: hidden;
-}
-
-.switch-button{
-    color: var(--color-1);
-    background-color: var(--background-color-1);
-
-    font-size: 16px;
-    padding: 7px 14px;
-
-    width: 100%;
-}
-
-.switch-button.active{
-    background-color: var(--color-hover-1);
-    color: var(--background-color-1);
-}
 
 .worker{
     width: 100%;
@@ -86,4 +59,11 @@
 .hover-text{
     font-size: 18px;
     color: var(--color-hover-1)
+}
+
+.hover-text.error{
+    font-size: 18px;
+    color: var(--error-color);
+
+    transition: none;
 }
