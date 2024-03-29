@@ -260,7 +260,12 @@ def register(request: HttpRequest):
         user.save()
         login(request, user)
 
-        return redirect('home')
+        if user.role == 1:
+            return redirect('home')
+
+        profile = Profile(user=user)
+        profile.save()
+        return redirect('profile')
 
     if request.method == 'POST':
         return post()
@@ -272,10 +277,10 @@ def user_login(request: HttpRequest):
 
     def get():
 
-        jinja2_engine = engines['jinja2']
-        template = jinja2_engine.get_template('registration/login.html')
-        rendered_template = template.render(data)
-        return HttpResponse(rendered_template)
+        # jinja2_engine = engines['jinja2']
+        # template = jinja2_engine.get_template('registration/login.html')
+        # rendered_template = template.render(data)
+        # return HttpResponse(rendered_template)
 
         return render(request, 'registration/login.html', data)
 
@@ -285,9 +290,14 @@ def user_login(request: HttpRequest):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+
+            if user.role == 1:
+                return redirect('home')
+
+            return redirect('orders')
 
         data['error'] = '* Неверное имя пользователя или пароль'
+
         return render(request, 'registration/login.html', data)
 
     if request.method == 'POST':

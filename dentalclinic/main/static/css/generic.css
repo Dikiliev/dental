@@ -69,6 +69,10 @@ form{
     border-radius: var(--base-border-radius);
 }
 
+.reg{
+    max-width: 600px;
+}
+
 option{
     color: var(--color-1)
 }

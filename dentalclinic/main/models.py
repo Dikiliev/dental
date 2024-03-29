@@ -96,7 +96,7 @@ class Profile(models.Model):
     specialization = models.ForeignKey(Specialization, default=1, related_name='profiles', on_delete=models.CASCADE)
     contact_info = models.TextField(blank=True)
 
-    description = models.TextField(verbose_name='Краткое портфолио')
+    description = models.TextField(verbose_name='Краткое портфолио', blank=True)
     address = models.CharField(max_length=150, blank=True, verbose_name='Адрес')
 
     services = models.ManyToManyField('Service', related_name='profiles', blank=True, verbose_name='Услуги')
