@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.template import engines
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 from .models import *
 from .converters import IntListConverter, DateTimeConverter
@@ -36,6 +37,15 @@ def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [in
     data['service_id'] = service_ids
     data['date'] = dt
     data['workers'] = User.objects.filter(role=2)
+
+    data['workers'] = User.objects.filter(
+        role=2,
+        profile__services__isnull=False
+    ).annotate(
+        services_count=Count('profile__services')
+    ).filter(
+        services_count__gt=0
+    )
 
     return render(request, 'specialists.html', data)
 

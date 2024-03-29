@@ -15,7 +15,12 @@
 
     <div class="strap">
 
-        <h1>Ваши записи</h1>
+        {% if orders %}
+            <h1>Ваши записи</h1>
+        {% else %}
+            <h1>У вас нет записей</h1>
+        {% endif %}
+
 
         {% for order in orders %}
 

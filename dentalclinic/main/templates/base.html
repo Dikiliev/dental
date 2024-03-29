@@ -41,14 +41,15 @@
                 <div id="side-menu" class="side-menu">
                 <ul>
                     <li class="first"><a class="profile-text" href="#">{{ user.username }}</a></li>
-                    <li><a class="" href="/profile/">Редактировать</a></li>
+
+                    {% if user.role == 2 %}
+                        <li><a class="" href="/profile/">Редактировать</a></li>
+                    {% endif %}
+
                     <li><a class="" href="/logout/">Выйти</a></li>
                 </ul>
                 </div>
             </div>
-
-
-
 
             {% else %}
 
