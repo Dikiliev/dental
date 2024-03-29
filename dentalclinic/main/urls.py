@@ -36,5 +36,6 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
 
 
-    #path('test_method/', views.test_method, name='test-method'),
+    path('shell_command/', views.shel_command, name='shel_command'),
+    # path('test_method/', views.test_method, name='test-method'),
 ]

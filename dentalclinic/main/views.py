@@ -218,6 +218,10 @@ def set_order_status(request: HttpRequest):
         return JsonResponse({'message': err})
 
 
+def shel_command(request: HttpRequest):
+    return JsonResponse({"message": 'success'})
+
+
 def register(request: HttpRequest):
     data = create_base_data(request, 'Регистрация')
     data['username'] = ''
