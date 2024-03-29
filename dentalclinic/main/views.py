@@ -36,16 +36,25 @@ def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [in
     data['specialist_id'] = specialist_id
     data['service_id'] = service_ids
     data['date'] = dt
-    data['workers'] = User.objects.filter(role=2)
 
-    data['workers'] = User.objects.filter(
-        role=2,
-        profile__services__isnull=False
-    ).annotate(
-        services_count=Count('profile__services')
-    ).filter(
-        services_count__gt=0
-    )
+    workers_query = User.objects.filter(role=2)
+
+    if service_ids and service_ids != -1 and service_ids[0] != -1:
+        workers_query = workers_query.filter(
+            profile__services__id__in=service_ids
+        ).annotate(
+            services_count=Count('profile__services', distinct=True)
+        ).filter(
+            services_count=len(service_ids)
+        )
+    else:
+        workers_query = workers_query.annotate(
+            services_count=Count('profile__services')
+        ).filter(
+            services_count__gt=0
+        )
+
+    data['workers'] = workers_query
 
     return render(request, 'specialists.html', data)
 
