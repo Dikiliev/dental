@@ -36,7 +36,6 @@ const timesGrid = document.getElementById('times-grid');
 
 const today = new Date();
 let selectDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-let selectTime = null;
 
 const daysOfWeekHTML = () => {
     calendarGrid.innerHTML = '';

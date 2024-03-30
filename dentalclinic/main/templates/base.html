@@ -31,32 +31,26 @@
         </div>
         <nav class="nav-menu horizontal-container">
             {% if user.is_authenticated %}
+                <a href="/" class="nav-item">Главное</a>
+                <a href="/orders" class="nav-item">Мои записи</a>
 
-            <a href="/" class="nav-item">Главное</a>
-            <a href="/orders" class="nav-item">Мои записи</a>
-<!--            <a href="/logout" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}">{{ user.username }}</a>-->
-<!--            <a id="profile-nav" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url}}"></a>-->
+                <div id="profile-nav" class="dropdown">
+                    <a id="" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url()}}"></a>
+                    <div id="side-menu" class="side-menu">
+                    <ul>
+                        <li class="first"><a class="profile-text" href="#">{{ user.username }}</a></li>
 
-            <div id="profile-nav" class="dropdown">
-                <a id="" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url()}}"></a>
-                <div id="side-menu" class="side-menu">
-                <ul>
-                    <li class="first"><a class="profile-text" href="#">{{ user.username }}</a></li>
+                        {% if user.role == 2 %}
+                            <li><a class="" href="/profile/">Редактировать</a></li>
+                        {% endif %}
 
-                    {% if user.role == 2 %}
-                        <li><a class="" href="/profile/">Редактировать</a></li>
-                    {% endif %}
-
-                    <li><a class="" href="/logout/">Выйти</a></li>
-                </ul>
+                        <li><a class="" href="/logout/">Выйти</a></li>
+                    </ul>
+                    </div>
                 </div>
-            </div>
-
             {% else %}
-
-            <a href="/login" class="nav-item">Войти</a>
-            <a href="/register" class="nav-item">Зарегистрироваться</a>
-
+                <a href="/login" class="nav-item">Войти</a>
+                <a href="/register" class="nav-item">Зарегистрироваться</a>
             {% endif %}
         </nav>
     </div>
