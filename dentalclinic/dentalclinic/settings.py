@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^z4z%f+g8x7lfpg5oa&ddd0-(2dsw+v5_cx9k1780790-89-8.ui,.jiop&6=bymgfxgg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 SESSION_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = 'main.User'
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'dentalclinic.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'main\\templates')],
+        'DIRS': [f"{BASE_DIR}/main/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'my_jinja2.environment',
@@ -131,11 +131,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+STATIC_URL = 'static'
+STATIC_ROOT = f"{BASE_DIR}/static/"
+print(BASE_DIR)
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+# STATICFILES_DIRS = [
+#     '/app/dentalclinic/main/static'
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
