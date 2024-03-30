@@ -13,7 +13,7 @@ from .models import *
 from .converters import IntListConverter, DateTimeConverter
 from .utils import *
 
-DEFAULT_TITLE = 'DentalClinic'
+DEFAULT_TITLE = 'L-Dent'
 
 
 def home(request: HttpRequest):
