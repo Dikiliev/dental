@@ -26,13 +26,12 @@ services:
       - mynetwork
     depends_on:
       - dentalclinic
+    command: nginx -g 'daemon off;'
   certbot:
     image: certbot/certbot
     volumes:
       - ./certs:/etc/letsencrypt
-    command: >
-      sh -c "certbot certonly --standalone --non-interactive --agree-tos
-      --email rosul.um@gmail.com -d ldent.online && nginx -g 'daemon off;'"
+    command: /bin/sh -c "./init-ssl.sh"
 
 networks:
   mynetwork:
