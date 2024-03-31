@@ -9,6 +9,6 @@ EXPOSE 443
 
 COPY init-ssl.sh .
 
-RUN /bin/sh -c "./init-ssl.sh"
+RUN #/bin/sh -c "./init-ssl.sh"
 
 #CMD ["nginx", "-g", "daemon off;"]
