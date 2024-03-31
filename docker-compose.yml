@@ -12,7 +12,7 @@ services:
       - static_volume:/app/static
       - media_volume:/app/media
   nginx:
-    image: nginx:latest
+    build: ./nginx
     ports:
       - "80:80"
       - "443:443"
@@ -26,11 +26,7 @@ services:
       - mynetwork
     depends_on:
       - dentalclinic
-    command: /bin/sh -c "init-ssl.sh"
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certs:/etc/letsencrypt
+    command: nginx -g daemon off;
 
 networks:
   mynetwork:
