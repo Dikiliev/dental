@@ -31,7 +31,7 @@ services:
     image: certbot/certbot
     volumes:
       - ./certs:/etc/letsencrypt
-    command: /bin/sh -c "./init-ssl.sh"
+    command: /bin/sh -c "init-ssl.sh"
 
 networks:
   mynetwork:
