@@ -1,9 +1,6 @@
-nginx -g 'daemon off;'
-
-apt-get update && apt-get install -y certbot
-certbot certonly --standalone --non-interactive --agree-tos --email rosul.um@gmail.com -d ldent.online
-
-cp /etc/letsencrypt/live/your_domain.com/fullchain.pem /etc/letsencrypt/ssl.crt
-cp /etc/letsencrypt/live/your_domain.com/privkey.pem /etc/letsencrypt/ssl.key
+apt-get update && apt-get install python3 python3-venv python3-pip -y
+python3 -m venv /root/venv
+/root/venv/bin/pip install certbot certbot-nginx
+/root/venv/bin/certbot certonly --standalone --non-interactive --agree-tos --email rosul.um@gmail.com -d ldent.online
 
 nginx -s reload
