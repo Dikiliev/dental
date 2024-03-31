@@ -21,10 +21,18 @@ services:
       - ./logs:/var/log/nginx
       - static_volume:/app/static
       - media_volume:/app/media
+      - ./certs:/etc/letsencrypt
     networks:
       - mynetwork
     depends_on:
       - dentalclinic
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certs:/etc/letsencrypt
+    command: >
+      sh -c "certbot certonly --standalone --non-interactive --agree-tos
+      --email rosul.um@gmail.com -d ldent.online && nginx -g 'daemon off;'"
 
 networks:
   mynetwork:
@@ -33,3 +41,4 @@ networks:
 volumes:
   static_volume:
   media_volume:
+  certs:
