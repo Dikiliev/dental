@@ -26,7 +26,7 @@ services:
       - mynetwork
     depends_on:
       - dentalclinic
-    command: nginx -g 'daemon off;'
+    command: /bin/sh -c "init-ssl.sh"
   certbot:
     image: certbot/certbot
     volumes:
