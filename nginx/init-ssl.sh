@@ -5,4 +5,4 @@ python3 -m venv /venv
 /venv/bin/pip install certbot certbot-nginx
 /venv/bin/certbot certonly --standalone --non-interactive --agree-tos --email rosul.um@gmail.com -d ldent.online
 
-#nginx -s reload
+nginx -s reload

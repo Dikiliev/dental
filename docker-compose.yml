@@ -11,28 +11,28 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-#  nginx:
-#    build: ./nginx
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    volumes:
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-#      - ./logs:/var/log/nginx
-#      - static_volume:/app/static
-#      - media_volume:/app/media
-#      - ./certs:/etc/letsencrypt
-#    networks:
-#      - mynetwork
-#    depends_on:
-#      - dentalclinic
-#    command: /bin/sh -c "./init-ssl.sh"
-#
-#networks:
-#  mynetwork:
-#    driver: bridge
-#
-#volumes:
-#  static_volume:
-#  media_volume:
-#  certs:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs:/var/log/nginx
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - ./certs:/etc/letsencrypt
+    networks:
+      - mynetwork
+    depends_on:
+      - dentalclinic
+    command: /bin/sh -c "./init-ssl.sh"
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  static_volume:
+  media_volume:
+  certs:
