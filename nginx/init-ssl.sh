@@ -1,8 +1,9 @@
-apt update
-apt install snapd
-snap install core; sudo snap refresh core
-snap install --classic certbot
-ln -s /snap/bin/certbot /usr/bin/certbot
+nginx -g 'daemon off;'
+
+apt-get update && apt-get install -y certbot
 certbot certonly --standalone --non-interactive --agree-tos --email rosul.um@gmail.com -d ldent.online
 
-nginx -g 'daemon off;'
+cp /etc/letsencrypt/live/your_domain.com/fullchain.pem /etc/letsencrypt/ssl.crt
+cp /etc/letsencrypt/live/your_domain.com/privkey.pem /etc/letsencrypt/ssl.key
+
+nginx -s reload
