@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    #'corsheaders',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -134,8 +134,13 @@ USE_TZ = True
 STATIC_URL = 'static'
 STATIC_ROOT = f"{BASE_DIR}/static/"
 print(BASE_DIR)
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media/'
 MEDIA_URL = '/media/'
+
+print(MEDIA_URL)
+print(MEDIA_ROOT)
+print(STATIC_URL)
+print(STATIC_ROOT)
 
 # STATICFILES_DIRS = [
 #     '/app/dentalclinic/main/static'
@@ -150,13 +155,13 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# # Разрешить все домены (не рекомендуется для продакшена)
-# CORS_ALLOW_ALL_ORIGINS = True
-#
-# # Или настроить разрешенные домены
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:8000',
-# ]
+# Разрешить все домены (не рекомендуется для продакшена)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Или настроить разрешенные домены
+CORS_ALLOWED_ORIGINS = [
+    '*',
+]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Движок сеансов (может быть 'db', 'cache' и другие)
 SESSION_COOKIE_AGE = 1209600  # Время жизни сеанса в секундах
