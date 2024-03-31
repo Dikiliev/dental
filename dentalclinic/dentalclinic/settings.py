@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-^z4z%f+g8x7lfpg5oa&ddd0-(2dsw+v5_cx9k1780790-89-8.
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['ldent.online', 'localhost']
 SESSION_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = 'main.User'
@@ -160,7 +160,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # Или настроить разрешенные домены
 CORS_ALLOWED_ORIGINS = [
-    '*',
+    'http://ldent.online',
+    'https://ldent.online'
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Движок сеансов (может быть 'db', 'cache' и другие)
