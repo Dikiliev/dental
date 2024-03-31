@@ -11,6 +11,6 @@ COPY init-ssl.sh .
 
 RUN chmod +x init-ssl.sh
 
-#RUN /bin/sh -c "./init-ssl.sh"
+RUN /bin/sh -c "./init-ssl.sh"
 
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
