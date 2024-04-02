@@ -47,7 +47,7 @@ def get_free_times_in_day(d: date, appointments: [(datetime, int)], start_time: 
 
 def get_month(date: datetime):
     return ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
-                'ноября', 'декабря'][date.month]
+                'ноября', 'декабря'][date.month - 1]
 
 
 def get_week(date: datetime):
