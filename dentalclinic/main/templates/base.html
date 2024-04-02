@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <link type="text/css" rel="stylesheet" href="{{ static('css/root.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static('css/footer.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static('css/generic.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static('css/head.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static('css/icons.css') }}">
@@ -62,9 +63,16 @@
     {% endblock %}
 </main>
 
-<footer>
-
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <h3>Стоматологическая клиника <span class="text-logo-part-2">L</span>-Dent</h3>
+            <p>ул. Абузара Айдамирова, 131, Грозный</p>
+            <p>8 (938) 018-33-33</p>
+        </div>
+    </div>
 </footer>
+
 </body>
 
 </html>

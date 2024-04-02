@@ -20,15 +20,9 @@ def home(request: HttpRequest):
     if not request.user.is_authenticated:
         return redirect('login')
 
+    context = create_base_data(request)
+    return render(request, 'index.html', context)
     return redirect('/select_specialist/m-1s-1d-1')
-
-
-def catalog(request: HttpRequest):
-    data = create_base_data(request)
-    data['workers'] = User.objects.filter(role=2)
-
-    return render(request, 'catalog.html', data)
-
 
 @login_required
 def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):

@@ -12,7 +12,6 @@ register_converter(converters.DateTimeConverter, 'datetime')
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('catalog/', views.catalog, name='catalog'),
     path('orders/', views.orders, name='orders'),
     path('profile/', views.profile_edits, name='profile'),
 

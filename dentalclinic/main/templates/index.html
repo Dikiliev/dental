@@ -1,23 +1,27 @@
 {% extends "base.html" %}
 
-{% load static %}
-
 {% block head  %}
-<link type="text/css" rel="stylesheet" href="{% static 'css/home.css' %}">
+<link type="text/css" rel="stylesheet" href="{{ static('css/home.css') }}">
 {% endblock %}
 
 
 {% block content  %}
+    <br><br>
+    <div class="container">
+        <div class="main-block">
+            <p class="title-2">Стоматологическая клиника</p>
+            <div class="big-logo">
+                <span class="text-logo-part-2 big-logo">L</span><span class="text-logo-part-1 big-logo">Dent</span>
+            </div>
 
-<main>
-    <div class="title-specialist">
-        <span class="text-logo-part-1">Django</span><span class="text-logo-part-2">Dev</span>
-    </div>
+            <p class="description">В нашей клинике представлены все основные медицинские направления. Мы с радостью поможем Вам по любым вопросам здоровья и жизни! Доверьтесь нам один раз и Вы останетесь довольны!</p>
 
-    <div class="about-us" id="about-us">
-        <script>get_text("{% static 'textes/home_about_us.html' %}", "about-us")</script>
+            <p>Улица: ул. Абузара Айдамирова, 131, Грозный</p>
+            <p>Рабочий номер: 8 (938) 018-33-33</p>
+
+            <a href="/select_specialist/m-1s-1d-1" class="button">Перейти к специалистам</a>
+        </div>
     </div>
-</main>
 
 {% endblock %}
 
