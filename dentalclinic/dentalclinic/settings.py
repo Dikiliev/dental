@@ -24,9 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^z4z%f+g8x7lfpg5oa&ddd0-(2dsw+v5_cx9k1780790-89-8.ui,.jiop&6=bymgfxgg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['ldent.online', 'localhost']
+
+if DEBUG:
+    ALLOWED_HOSTS.append('*')
+
 SESSION_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = 'main.User'
@@ -131,16 +135,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static'
+STATIC_URL = '/static/'
 STATIC_ROOT = f"{BASE_DIR}/static/"
-print(BASE_DIR)
+
 MEDIA_ROOT = BASE_DIR / 'media/'
 MEDIA_URL = '/media/'
-
-print(MEDIA_URL)
-print(MEDIA_ROOT)
-print(STATIC_URL)
-print(STATIC_ROOT)
 
 # STATICFILES_DIRS = [
 #     '/app/dentalclinic/main/static'
