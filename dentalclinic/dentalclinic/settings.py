@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^z4z%f+g8x7lfpg5oa&ddd0-(2dsw+v5_cx9k1780790-89-8.ui,.jiop&6=bymgfxgg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['ldent.online', 'localhost']
 
