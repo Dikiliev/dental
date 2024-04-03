@@ -30,12 +30,12 @@
 }
 
 .title-specialist{
-    font-size: 21px;
+    font-size: 1.4rem;
     font-weight: 600;
 }
 
 .work-title{
-    font-size: 18px;
+    font-size: 1.2rem;
     color: var(--color-1)
 }
 
@@ -47,7 +47,7 @@
 }
 
 .service-title{
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .hover-text{
-    font-size: 18px;
+    font-size: 1.2rem;
     color: var(--color-hover-1)
 }
 
