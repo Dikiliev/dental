@@ -31,8 +31,9 @@
             <a href="/"><span class="text-logo-part-2">L</span><span class="text-logo-part-1">Dent</span></a>
         </div>
         <nav class="nav-menu horizontal-container">
+            <a href="/" class="nav-item">Главное</a>
             {% if user.is_authenticated %}
-                <a href="/" class="nav-item">Главное</a>
+
                 <a href="/orders" class="nav-item">Мои записи</a>
 
                 <div id="profile-nav" class="dropdown">

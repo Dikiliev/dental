@@ -13,7 +13,10 @@ class User(AbstractUser):
     ROLE_ENUM = (
         (1, 'Пользователь'),
         (2, 'Врач'),
+        (3, 'Мененджер'),
     )
+
+    DEFAULT_AVATAR_URL = 'https://abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png'
 
     role = models.IntegerField(
         choices=ROLE_ENUM,
@@ -37,7 +40,7 @@ class User(AbstractUser):
 
     def get_avatar_url(self):
         if not self.avatar:
-            return 'https://abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png'
+            return self.DEFAULT_AVATAR_URL
 
         return self.avatar.url
 
@@ -55,7 +58,6 @@ class User(AbstractUser):
             raise Exception('У специалиста отсутвует специализация (Profile)')
 
         appointments = self.get_appointment_by_list()
-
 
         result = utils.get_free_times(appointments, profile.start_time, profile.end_time)[:6]
 
@@ -131,7 +133,7 @@ class Appointment(models.Model):
                                                validators=[MinValueValidator(10000), MaxValueValidator(99999), ],
                                                verbose_name='Номер заказа')
 
-    user = models.ForeignKey(User, related_name='user_appointments', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_appointments', on_delete=models.CASCADE, blank=True, default=None, null=True)
     dentist = models.ForeignKey(User, related_name='dentist_appointments', on_delete=models.CASCADE)
     order_status = models.IntegerField(default=1, choices=ORDER_STATUS_CHOICES, verbose_name='Статус')
     date_time = models.DateTimeField()
@@ -179,6 +181,13 @@ class Appointment(models.Model):
             total_price += appointment.service.price
 
         return total_price
+
+    def get_avatar_url(self):
+        if self.user is None:
+            return User.DEFAULT_AVATAR_URL
+
+        return self.user.get_avatar_url()
+
 
 
 class AppointmentService(models.Model):

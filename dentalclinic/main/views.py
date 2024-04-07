@@ -17,14 +17,14 @@ DEFAULT_TITLE = 'L-Dent'
 
 
 def home(request: HttpRequest):
-    if not request.user.is_authenticated:
-        return redirect('login')
+    # if not request.user.is_authenticated:
+    #     return redirect('login')
 
     context = create_base_data(request)
     return render(request, 'index.html', context)
     return redirect('/select_specialist/m-1s-1d-1')
 
-@login_required
+
 def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [int], dt: datetime):
     data = create_base_data(request)
     data['specialist_id'] = specialist_id
@@ -53,7 +53,6 @@ def select_specialist(request: HttpRequest, specialist_id: int, service_ids: [in
     return render(request, 'specialists.html', data)
 
 
-@login_required
 def select_service(request: HttpRequest, specialist_id: str, service_ids: [int], dt: datetime):
     data = create_base_data(request)
     data['specialist_id'] = specialist_id
@@ -69,7 +68,6 @@ def select_service(request: HttpRequest, specialist_id: str, service_ids: [int],
     return render(request, 'services.html', data)
 
 
-@login_required
 def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
     data = create_base_data(request)
     data['specialist_id'] = specialist_id
@@ -79,7 +77,6 @@ def select_date(request: HttpRequest, specialist_id: int, service_ids: [int], dt
     return render(request, 'select_date.html', data)
 
 
-@login_required
 def completion_appointment(request: HttpRequest, specialist_id: int, service_ids: [int], dt: str):
     data = create_base_data(request)
 

@@ -81,12 +81,12 @@
 
         <div class="input-group">
             <label for="full_name">Имя *</label>
-            <input type="text" id="full_name" name="full_name" value="{{ user.first_name }} {{ user.last_name }}" placeholder="Введите имя" required>
+            <input type="text" id="full_name" name="full_name" value="{%if user.is_authenticated %} {{ user.first_name }} {{ user.last_name }} {% endif %}" placeholder="Введите имя" required>
         </div>
 
         <div class="input-group">
             <label for="phone">Телефона *</label>
-            <input type="tel" id="phone" name="phone" value="{{ user.phone_number }}" placeholder="Номер телефона" required>
+            <input type="tel" id="phone" name="phone" value="{%if user.is_authenticated %} {{ user.phone_number }} {% endif %}" placeholder="Номер телефона" required>
         </div>
 
         <div class="input-group">
