@@ -30,6 +30,10 @@ urlpatterns = [
     path(f'get_times/<int:specialist_id>/<int:year>/<int:month>/<int:day>', views.get_times, name='get-times'),
     path(f'set_order_status/', views.set_order_status, name='get-times'),
 
+    path(f'manager/main', views.manager_main, name='manager_main'),
+    path(f'manager/create_specialist', views.create_specialist, name='manager_create_specialist'),
+    path(f'manager/create_order', views.create_order, name='create_order'),
+
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.logout_user, name='logout'),

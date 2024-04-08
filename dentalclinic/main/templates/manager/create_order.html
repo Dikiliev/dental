@@ -1,0 +1,39 @@
+{% extends  "base.html" %}
+
+
+{% block head  %}
+<link type="text/css" rel="stylesheet" href="{{ static('css/appointmenting.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ static('css/completion_appointment.css') }}">
+
+{% endblock %}
+
+{% block content  %}
+
+<br><br>
+<div class="container">
+    <div class="strap">
+
+        <div class="container w100" style="padding: 30px 0">
+                <div class="icon-strap">
+                    <img class="big-icon" src="{{ static('images/check_mark_icon.svg') }}">
+                </div>
+                <h1>Аккаунт спецалиста создан!</h1>
+                <p class="service-title">{{date.week}}, {{date.day}} {{date.month}}, {{date.time}}</p>
+                <a href='/manager/main' class="button">Вернуться на главное меню</a>
+            </div>
+
+
+            <div class="card">
+                <img src="{{specialist.get_avatar_url()}}">
+                <div class="card-info">
+                    <span class="transparent-text">{{specialist.profile.specialization}}</span>
+                    <span class="title-specialist">{{specialist.first_name}} {{specialist.last_name}}</span>
+                </div>
+            </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

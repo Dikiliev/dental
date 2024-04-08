@@ -222,17 +222,91 @@ def shel_command(request: HttpRequest):
     return JsonResponse({"message": 'success'})
 
 
-def register(request: HttpRequest):
-    data = create_base_data(request, 'Регистрация')
-    data['username'] = ''
-    data['email'] = ''
-    data['first_name'] = ''
-    data['last_name'] = ''
-    data['phone'] = ''
+def manager_main(request: HttpRequest):
+    context = create_base_data(request)
+    context['orders'] = Appointment.objects.filter(date_time__gte=datetime.today()).order_by('date_time')[:5]
+    return render(request, 'manager/main.html', context)
+
+
+def create_specialist(request: HttpRequest):
+    context = create_base_data(request)
+    context['username'] = ''
+    context['email'] = ''
+    context['first_name'] = ''
+    context['last_name'] = ''
+    context['phone'] = ''
 
     def get():
-        print(data)
-        return render(request, 'registration/register.html', data)
+        return render(request, 'manager/create_specialist.html', context)
+
+    def post():
+        post_data = request.POST
+
+        user = User()
+        user.username = post_data.get('username', '')
+        user.first_name = post_data.get('first_name', '')
+        user.last_name = post_data.get('last_name', '')
+        user.phone_number = post_data.get('phone', '')
+        user.address = post_data.get('address', '')
+        user.role = 2
+
+        password = post_data.get('password', '')
+
+        context['username'] = user.username
+        context['email'] = user.email
+        context['first_name'] = user.first_name
+        context['last_name'] = user.last_name
+        context['phone'] = user.phone_number
+
+        def check_validate():
+            if len(user.username) < 3:
+                context['error'] = '* Имя пользователся должно состоять как минимум из 3 симьволов'
+                return False
+
+            if user.exist():
+                context['error'] = '* Такой пользователь уже существует'
+                return False
+
+            if len(password) < 8:
+                context['error'] = '* Пароль должен состоять как минимум из 8 симьволов'
+                return False
+            return True
+
+        if not check_validate():
+            return render(request, 'manager/create_specialist.html', context)
+
+        user.set_password(password)
+        user.save()
+
+        profile = Profile(user=user)
+        profile.save()
+
+        context['specialist'] = user
+        context['password'] = password
+        return render(request, 'manager/specialist_created.html', context)
+
+    if request.method == 'POST':
+        return post()
+    return get()
+
+
+def create_order(request: HttpRequest):
+    context = create_base_data(request)
+    context['orders'] = Appointment.objects.filter(date_time__gte=datetime.today()).order_by('date_time')[:5]
+    return render(request, 'manager/create_order.html', context)
+
+
+def register(request: HttpRequest):
+    context = create_base_data(request, 'Регистрация')
+    context['username'] = ''
+    context['email'] = ''
+    context['first_name'] = ''
+    context['last_name'] = ''
+    context['phone'] = ''
+
+    def get():
+        print(context)
+        return render(request, 'registration/register.html', context)
 
     def post():
         post_data = request.POST
@@ -247,28 +321,28 @@ def register(request: HttpRequest):
 
         password = post_data.get('password', '')
 
-        data['username'] = user.username
-        data['email'] = user.email
-        data['first_name'] = user.first_name
-        data['last_name'] = user.last_name
-        data['phone'] = user.phone_number
+        context['username'] = user.username
+        context['email'] = user.email
+        context['first_name'] = user.first_name
+        context['last_name'] = user.last_name
+        context['phone'] = user.phone_number
 
         def check_validate():
             if len(user.username) < 3:
-                data['error'] = '* Имя пользователся должно состоять как минимум из 3 симьволов'
+                context['error'] = '* Имя пользователся должно состоять как минимум из 3 симьволов'
                 return False
 
             if user.exist():
-                data['error'] = '* Такой пользователь уже существует'
+                context['error'] = '* Такой пользователь уже существует'
                 return False
 
             if len(password) < 8:
-                data['error'] = '* Пароль должен состоять как минимум из 8 симьволов'
+                context['error'] = '* Пароль должен состоять как минимум из 8 симьволов'
                 return False
             return True
 
         if not check_validate():
-            return render(request, 'registration/register.html', data)
+            return render(request, 'registration/register.html', context)
 
         user.set_password(password)
         user.save()
