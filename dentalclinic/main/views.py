@@ -140,6 +140,10 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
 def orders(request: HttpRequest):
     data = create_base_data(request)
 
+    if request.user.role == 3:
+        data['orders'] = Appointment.objects.filter(date_time__gte=datetime.today()).order_by('-create_date')
+        return render(request, 'manager/orders.html', data)
+
     if request.user.role == 1:
         data['orders'] = Appointment.objects.filter(user_id=request.user.id).order_by('-create_date')
     else:

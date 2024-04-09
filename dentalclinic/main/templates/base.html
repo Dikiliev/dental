@@ -34,8 +34,14 @@
             <a href="/" class="nav-item">Главное</a>
             {% if user.is_authenticated %}
 
-                <a href="/orders" class="nav-item">Мои записи</a>
+            {% if user.role == 3 %}
+                <a href="/manager/main" class="nav-item">Управление</a>
+                <a href="/orders" class="nav-item">Все записи</a>
 
+
+            {% else %}
+                <a href="/orders" class="nav-item">Мои записи</a>
+            {% endif %}
                 <div id="profile-nav" class="dropdown">
                     <a id="" class="nav-item profile-text"><img class="profile-avatar" src="{{user.get_avatar_url()}}"></a>
                     <div id="side-menu" class="side-menu">

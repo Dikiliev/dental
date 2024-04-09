@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block head  %}
+<link type="text/css" rel="stylesheet" href="{{ static('css/home.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ static('css/orders.css') }}">
+{% endblock %}
+
+
+{% block content  %}
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <br><br>
+    <div class="container">
+        <div class="strap w100">
+                <h1>Все записи</h1>
+
+                {% for order in orders %}
+
+                    {% if user.role == 1 %}
+                    {% set full_name = order.dentist.first_name + " " + order.dentist.last_name %}
+                    {% else %}
+                    {% set full_name = order.full_name %}
+                    {% endif %}
+
+
+                    <div class="card">
+
+                        {% if user.role == 1 %}
+                        <img class="mini-avatar" src="{{order.dentist.get_avatar_url()}}">
+                        {% else %}
+                        <img class="mini-avatar" src="{{order.user.get_avatar_url()}}">
+                        {% endif %}
+
+                        <div class="card-info">
+                            <p class="transparent-text">{{order.get_date_by_str().week}}, {{order.get_date_by_str().day}} {{order.get_date_by_str().month}}, {{order.get_date_by_str().time}}</p>
+                            <span class="work-title">{{full_name}}</span>
+
+                            <div class="selected-services">
+                                <br>
+                                <div class="justify-content">
+                                    <p><span class="hover-text">{{order.get_total_price()}} ₽</span> <span class="transparent-text"> ({{order.get_duration()}} мин.)</span></p>
+
+                                    <div class="horizontal-container" style="gap: 30px">
+                                        <p>Статус: <span class="hover-text {% if order.order_status == 5 %}error{% endif %}" id="status-{{ order.id }}">{{order.get_order_status_display()}}</span></p>
+
+                                        <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <hr>
+
+                {% endfor %}
+            </div>
+    </div>
+
+<script type="text/javascript" src="{{ static('js/orders.js') }}"></script>
+
+{% endblock %}
+
+
