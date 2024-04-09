@@ -21,9 +21,19 @@
                 <div class="icon-strap">
                     <img class="big-icon" src="{{ static('images/check_mark_icon.svg') }}">
                 </div>
+
+                {% if user.is_authenticated and user.role == 3 %}
+                <h1>Запись создана</h1>
+                <p class="service-title">{{date.week}}, {{date.day}} {{date.month}}, {{date.time}}</p>
+                <a href='/select_specialist/m-1s-1d-1' class="button">Создать еще</a>
+                <a href='/manager/main' class="button">Перейти в панель управлние</a>
+                {% else %}
                 <h1>Вы записаны</h1>
                 <p class="service-title">{{date.week}}, {{date.day}} {{date.month}}, {{date.time}}</p>
                 <a href='/select_specialist/m-1s-1d-1' class="button">Записаться еще</a>
+                {% endif %}
+
+
             </div>
 
 

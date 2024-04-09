@@ -321,7 +321,7 @@ def register(request: HttpRequest):
         user.last_name = post_data.get('last_name', '')
         user.phone_number = post_data.get('phone', '')
         user.address = post_data.get('address', '')
-        user.role = post_data.get('category', '')
+        user.role = 1
 
         password = post_data.get('password', '')
 
@@ -352,12 +352,12 @@ def register(request: HttpRequest):
         user.save()
         login(request, user)
 
-        if user.role == 1:
-            return redirect('home')
+        if user.role == 2:
+            profile = Profile(user=user)
+            profile.save()
+            return redirect('profile')
 
-        profile = Profile(user=user)
-        profile.save()
-        return redirect('profile')
+        return redirect('home')
 
     if request.method == 'POST':
         return post()

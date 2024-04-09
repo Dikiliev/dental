@@ -24,15 +24,11 @@
 
                     <div class="card">
 
-                        {% if user.role == 1 %}
-                        <img class="mini-avatar" src="{{order.dentist.get_avatar_url()}}">
-                        {% else %}
-                        <img class="mini-avatar" src="{{order.user.get_avatar_url()}}">
-                        {% endif %}
+                        <img class="mini-avatar" src="{{order.get_avatar_url()}}">
 
                         <div class="card-info">
                             <p class="transparent-text">{{order.get_date_by_str().week}}, {{order.get_date_by_str().day}} {{order.get_date_by_str().month}}, {{order.get_date_by_str().time}}</p>
-                            <span class="work-title">{{full_name}}</span>
+                            <span class="work-title">{{order.full_name}}</span>
 
                             <div class="selected-services">
                                 <br>
