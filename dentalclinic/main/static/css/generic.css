@@ -219,11 +219,14 @@ form a:hover{
 
 .card{
     display: flex;
-    flex-direction: row;
     gap: 20px;
 
     width: 100%;
     margin: auto;
+}
+
+.card.center{
+    align-items: center;
 }
 
 .transparent-text{
