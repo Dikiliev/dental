@@ -5,3 +5,12 @@
 .switch-button{
     background-color: var(--background-color-2);
 }
+
+.url-button{
+    color: var(--color-hover-1);
+}
+
+.url-button:hover{
+    color: var(--color-hover-2);
+    text-decoration: underline;
+}

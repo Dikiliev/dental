@@ -112,7 +112,10 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
         appointment = Appointment()
 
         appointment.dentist = User.objects.get(id=specialist_id)
-        appointment.user = request.user
+
+        if request.user.is_authenticated:
+            appointment.user = request.user
+
         appointment.date_time = dt
 
         appointment.full_name = post_data.get('full_name', '')

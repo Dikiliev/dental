@@ -189,7 +189,6 @@ class Appointment(models.Model):
         return self.user.get_avatar_url()
 
 
-
 class AppointmentService(models.Model):
     appointment = models.ForeignKey(Appointment, related_name='appointment_services', on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
