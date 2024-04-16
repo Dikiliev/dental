@@ -7,6 +7,9 @@
 }
 
 .url-button{
+    display: block;
+    width: 100%;
+    text-align: center;
     color: var(--color-hover-1);
 }
 

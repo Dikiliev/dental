@@ -121,12 +121,12 @@ option{
     color: var(--color-1);
 }
 
-a{
+form a{
     display: block;
     width: 100%;
     text-align: center;
 }
-a:hover{
+form a:hover{
     color: var(--color-hover-1);
 }
 
