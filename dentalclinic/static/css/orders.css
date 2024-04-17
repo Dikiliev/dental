@@ -1,0 +1,19 @@
+.switch-buttons{
+    background-color: var(--background-color-2);
+    margin: 0;
+}
+.switch-button{
+    background-color: var(--background-color-2);
+}
+
+.url-button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: var(--color-hover-1);
+}
+
+.url-button:hover{
+    color: var(--color-hover-2);
+    text-decoration: underline;
+}
