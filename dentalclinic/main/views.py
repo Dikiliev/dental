@@ -13,7 +13,7 @@ from .models import *
 from .converters import IntListConverter, DateTimeConverter
 from .utils import *
 
-DEFAULT_TITLE = 'L-Dent'
+DEFAULT_TITLE = 'ЛДент Стоматологическа клиника'
 
 
 def home(request: HttpRequest):
@@ -304,7 +304,7 @@ def create_order(request: HttpRequest):
 
 
 def register(request: HttpRequest):
-    context = create_base_data(request, 'Регистрация')
+    context = create_base_data(request,)
     context['username'] = ''
     context['email'] = ''
     context['first_name'] = ''
@@ -368,7 +368,7 @@ def register(request: HttpRequest):
 
 
 def user_login(request: HttpRequest):
-    data = create_base_data(request, 'Вход')
+    data = create_base_data(request)
 
     def get():
 

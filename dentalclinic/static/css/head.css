@@ -1,17 +1,19 @@
 
 .head{
     width: 100vw;
-    height: 70px;
+    height: 4rem;
     background-color: var(--background-header);
     box-shadow: 0 1px var(--shadow-blur) var(--shadow);
 
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .head-content{
     margin: auto;
     max-width: var(--max-width);
     height: 100%;
+
+    padding: 0 1rem;
 }
 
 .profile-text{
@@ -28,7 +30,7 @@
 .text-logo-part-1, .text-logo-part-2{
     font-family: var(--logo-font);
     font-weight: 700;
-    font-size: 32px;
+    font-size: 1.5rem;
 }
 
 .text-logo-part-1{
@@ -44,8 +46,8 @@
 }
 
 .nav-item{
-    font-size: 16px;
-    margin: auto 20px;
+    font-size: 1rem;
+    margin: auto 1rem;
     text-decoration: none;
 
     display: flex;

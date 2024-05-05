@@ -59,9 +59,11 @@
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
 
-    padding: 20px 0;
+    padding: 1.2rem 0;
     box-shadow: 0 5px 5px 0 var(--shadow);
     border-radius: var(--base-border-radius);
+
+    row-gap: 1rem;
 }
 
 .calender-grid-element{
@@ -70,7 +72,6 @@
     margin: auto;
 
     min-height: 40px;
-    padding: 2px;
 }
 
 .calender-grid-element-button{
@@ -104,8 +105,8 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     justify-items: stretch;
-    gap: 15px;
-    padding: 0 3%;
+    gap: 1rem;
+    padding: 1rem;
 }
 
 .time-el{

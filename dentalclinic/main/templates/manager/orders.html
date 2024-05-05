@@ -17,22 +17,26 @@
 
                     {% set full_name = order.dentist.first_name + " " + order.dentist.last_name %}
 
+                    <div class="cards">
+                        <div class="card center" >
+                            <img class="mini-avatar" src="{{order.dentist.get_avatar_url()}}">
 
-                    <div class="card center" >
-                        <img class="mini-avatar" src="{{order.dentist.get_avatar_url()}}">
+                            <div class="card-info">
+                                <p class="transparent-text">Специалист</p>
+                                <span class="work-title">{{full_name}}</span>
 
-                        <div class="card-info">
-                            <p class="transparent-text">Специалист</p>
-                            <span class="work-title">{{full_name}}</span>
-
+                            </div>
                         </div>
-                        <img class="mini-avatar" src="{{order.get_avatar_url()}}">
+
+                        <div class="card center" >
+                            <img class="mini-avatar" src="{{order.get_avatar_url()}}">
 
                             <div class="card-info">
                                 <p class="transparent-text">Клиент</p>
                                 <span class="work-title">{{order.full_name}}</span>
                                 <span class="work-title">{{order.user_phone}}</span>
                             </div>
+                        </div>
                     </div>
 
                     <div class="selected-services">
@@ -46,15 +50,14 @@
 
                         {% endfor %}
                         <br>
+                        <p><span class="hover-text">{{order.get_total_price()}} ₽</span> <span class="transparent-text"> ({{order.get_duration()}} мин.)</span></p>
+                        <br>
                         <div class="justify-content">
-                            <p><span class="hover-text">{{order.get_total_price()}} ₽</span> <span class="transparent-text"> ({{order.get_duration()}} мин.)</span></p>
 
-                            <div class="horizontal-container" style="gap: 30px">
-                                <p>Статус: <span class="hover-text {% if order.order_status == 5 %}error{% endif %}" id="status-{{ order.id }}">{{order.get_order_status_display()}}</span></p>
 
-                                <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>
+                            <p>Статус: <span class="hover-text {% if order.order_status == 5 %}error{% endif %}" id="status-{{ order.id }}">{{order.get_order_status_display()}}</span></p>
 
-                            </div>
+                            <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>
                         </div>
 
                     </div>

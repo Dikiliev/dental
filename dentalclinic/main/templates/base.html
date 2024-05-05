@@ -6,14 +6,19 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
 
-    <link rel="shortcut icon" href="{{ static('images/favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="{{ static('images/check_mark.png') }}"/>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="shortcut icon" href="{{ static('images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ static('images/favicon.ico') }}" type="image/x-icon">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ static('images/favicon.ico') }}">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <meta property="og:title" content="ЛДент стоматологическая клиника">
+    <meta name="description" content="ЛДент стоматологическая клиника. Грозный. ул. Абузара Айдамирова, 131  Рабочий номер: 8 (938) 018-33-33">
 
     <link type="text/css" rel="stylesheet" href="{{ static('css/root.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static('css/footer.css') }}">
@@ -41,7 +46,7 @@
             <a href="/"><span class="text-logo-part-2">Л</span><span class="text-logo-part-1">Дент</span></a>
         </div>
         <nav class="nav-menu horizontal-container">
-            <a href="/" class="nav-item">Главное</a>
+<!--            <a href="/" class="nav-item">Главное</a>-->
             {% if user.is_authenticated %}
 
             {% if user.role == 3 %}
@@ -68,7 +73,7 @@
                 </div>
             {% else %}
                 <a href="/login" class="nav-item">Войти</a>
-                <a href="/register" class="nav-item">Зарегистрироваться</a>
+<!--                <a href="/register" class="nav-item">Зарегистрироваться</a>-->
             {% endif %}
         </nav>
     </div>

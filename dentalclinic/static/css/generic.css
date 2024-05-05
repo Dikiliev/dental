@@ -29,6 +29,8 @@ a{
 
     max-width: var(--max-width);
     margin: auto;
+
+    padding: 1rem;
 }
 
 .row{
@@ -52,6 +54,17 @@ a{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    width: 100%;
+}
+
+.justify-content-custom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-wrap: wrap;
 
     width: 100%;
 }
@@ -142,9 +155,9 @@ form a:hover{
 
 .button{
     width: 100%;
-    padding: 10px;
+    padding: 0.5rem;
     outline:none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: center;
 
     border-radius: calc(var(--base-border-radius) / 2);
@@ -170,7 +183,8 @@ form a:hover{
     z-index: 9999;
     margin: 20px auto;
     opacity: 1;
-    width: calc(var(--max-width) - 32px);
+    width: 100%;
+    max-width: calc(var(--max-width) - 32px);
 }
 
 .button.mini{
@@ -217,9 +231,21 @@ form a:hover{
 
 }
 
+.cards{
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+    .cards{
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
 .card{
     display: flex;
-    gap: 20px;
+    gap: 1rem;
 
     width: 100%;
     margin: auto;
@@ -244,13 +270,13 @@ form a:hover{
 
 .strap{
     width: 100%;
-    padding: 20px;
+    padding: 1.5rem;
     background-color: var(--background-color-1);
     border-radius: var(--base-border-radius);
 
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.5rem;
 }
 
 .upload-section {
@@ -313,22 +339,30 @@ form a:hover{
 
     max-width: var(--max-width);
     margin: 0 auto;
-    gap: 5px;
+
+    gap: 0;
 
     background-color: var(--background-color-1);
     border-radius: var(--base-border-radius);
     overflow: hidden;
 }
 
+
 .switch-button{
+    margin: 0;
     color: var(--color-1);
     background-color: var(--background-color-1);
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
 
-    font-size: 16px;
-    padding: 7px 14px;
-
-    width: 100%;
 }
+
+@media (max-width: 768px) {
+    .switch-button{
+        padding: 0.7rem 0.4rem;
+    }
+}
+
 
 .switch-button.active{
     background-color: var(--color-hover-1);

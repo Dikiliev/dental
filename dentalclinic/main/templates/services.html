@@ -18,7 +18,8 @@
     {% for service in services %}
     <div id="service-card-{{service.id}}" class="service-card">
         <div class="service-info">
-            <span class="service-title">{{service.title}}&nbsp;&nbsp;<span class="service-duration">{{service.duration}} мин.</span></span>
+            <span class="service-title">{{service.title}}<br><span class="service-duration">{{service.duration}} мин.</span></span>
+
             <span class="hover-text">{{service.price}} ₽</span>
         </div>
         <div class="service-right">

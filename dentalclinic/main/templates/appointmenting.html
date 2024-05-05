@@ -29,17 +29,19 @@
 
 {% block content  %}
 
-<br>
-<div class="switch-buttons">
-    <button id="specialist-button" class="switch-button">Выбрать врача</button>
-    <button id="service-button" class="switch-button">Выбрать услугу</button>
-    <button id="date-button" class="switch-button">Выбрать время</button>
-</div>
 
-<script type="text/javascript" src="{{ static('js/appointmenting.js') }}"></script>
-
-<br><br>
 <div class="container">
+    <br>
+    <div class="switch-buttons">
+        <button id="specialist-button" class="switch-button">Выбрать врача</button>
+        <button id="service-button" class="switch-button">Выбрать услугу</button>
+        <button id="date-button" class="switch-button">Выбрать время</button>
+    </div>
+
+    <script type="text/javascript" src="{{ static('js/appointmenting.js') }}"></script>
+
+    <br>
+
     {% block container  %}
 
     {% endblock %}
