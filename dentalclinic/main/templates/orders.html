@@ -36,7 +36,7 @@
             {% if user.role == 1 %}
             <img class="mini-avatar" src="{{order.dentist.get_avatar_url()}}">
             {% else %}
-            <img class="mini-avatar" src="{{order.user.get_avatar_url()}}">
+            <img class="mini-avatar" src="{{order.get_avatar_url()}}">
             {% endif %}
             <div class="card-info">
                 <p class="transparent-text">{{order.get_date_by_str().week}}, {{order.get_date_by_str().day}} {{order.get_date_by_str().month}}, {{order.get_date_by_str().time}}</p>
@@ -52,24 +52,21 @@
 
                     {% endfor %}
                     <br>
-                    <div class="justify-content">
-                        <p><span class="hover-text">{{order.get_total_price()}} ₽</span></p>
-
-                        <div class="horizontal-container" style="gap: 30px">
-                            <p>Статус: <span class="hover-text {% if order.order_status == 5 %}error{% endif %}" id="status-{{ order.id }}">{{order.get_order_status_display()}}</span></p>
-
-                            {% if user.role == 2 %}
-
-                            <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>
-
-                            {% endif %}
-                        </div>
-                    </div>
-
+                    <p><span class="hover-text">{{order.get_total_price()}} ₽</span></p>
                 </div>
-
             </div>
 
+        </div>
+        <div class="justify-content">
+
+
+            <p>Статус: <span class="hover-text {% if order.order_status == 5 %}error{% endif %}" id="status-{{ order.id }}">{{order.get_order_status_display()}}</span></p>
+
+            {% if user.role == 2 %}
+
+            <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>
+
+            {% endif %}
         </div>
         <hr>
 
