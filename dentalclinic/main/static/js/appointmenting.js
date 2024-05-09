@@ -105,18 +105,72 @@ function refreshNextButton(){
 
     if (enable){
         const bottomNextButton = document.getElementById('next-button');
-        bottomNextButton.innerHTML = nextButtonText;
 
-        bottomNextButton.onclick = () => {
-            redirect_url(nextPage.url)
-        };
+        if (isEditDate){
+            bottomNextButton.innerHTML = 'Сохранить';
 
+            bottomNextButton.onclick = () => {
+                set_order_date(order_id, `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${selectedDate.getDate()}-${selectedDate.getHours()}-${selectedDate.getMinutes()}`);
+            };
+        }
+        else{
+            bottomNextButton.innerHTML = nextButtonText;
+
+            bottomNextButton.onclick = () => {
+                redirect_url(nextPage.url)
+            };
+        }
+    }
+}
+
+function set_order_date(order_id, value){
+    let data = {
+        'id': order_id,
+        'value': value
     }
 
+    console.log(data);
+
+    fetch(BASE_URL + `set_order_date/`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRFToken": getCsrfToken()
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            if (is_authenticated){
+                window.location.assign('/orders');
+            }
+            else{
+                window.location.assign('/');
+            }
+
+        })
+        .catch(error => {
+            console.error("Ошибка:" + error);
+        });
+}
+
+function getCsrfToken() {
+    const csrfTokenElement = document.getElementsByName('csrfmiddlewaretoken')[0];
+    return csrfTokenElement ? csrfTokenElement.value : '';
 }
 
 function redirect_url(url){
-    let resultUrl = `/${url}/m${selectedSpecialistId}s`
+    let resultUrl = `/${url}/${getUrlString()}`
+
+    console.log(`[redirect_url] ${selectedDate}`);
+    window.location.assign(resultUrl);
+}
+
+
+function getUrlString(){
+    let resultUrl = `m${selectedSpecialistId}s`
 
     if (selectedServiceIds.length > 0){
         for (const id of selectedServiceIds){
@@ -136,6 +190,5 @@ function redirect_url(url){
         resultUrl += 'd-1'
     }
 
-    console.log(`[redirect_url] ${selectedDate}`);
-    window.location.assign(resultUrl);
+    return resultUrl;
 }

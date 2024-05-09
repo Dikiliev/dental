@@ -139,6 +139,20 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
     return get(specialist_id, service_ids, dt)
 
 
+def edit_date(request: HttpRequest, order_id: int):
+    data = create_base_data(request)
+    order = Appointment.objects.get(id=order_id)
+
+    data['specialist_id'] = order.dentist_id
+    data['service_id'] = [service.id for service in order.appointment_services.all()]
+    data['date'] = order.date_time
+
+    data['is_edit_date'] = True
+    data['order_id'] = order_id
+
+    return render(request, 'select_date.html', data)
+
+
 @login_required
 def orders(request: HttpRequest):
     data = create_base_data(request)
@@ -218,6 +232,21 @@ def set_order_status(request: HttpRequest):
         data = json.loads(request.body)
         order = Appointment.objects.get(id=data['id'])
         order.order_status = data['value']
+        order.save()
+        return JsonResponse({'message': 'success'})
+    except Exception as err:
+        print(f'ERROR: {err}')
+        return JsonResponse({'message': err})
+
+
+def set_order_date(request: HttpRequest):
+    try:
+        data = json.loads(request.body)
+
+        dt = DateTimeConverter().to_python( data['value'])
+
+        order = Appointment.objects.get(id=data['id'])
+        order.date_time = dt
         order.save()
         return JsonResponse({'message': 'success'})
     except Exception as err:

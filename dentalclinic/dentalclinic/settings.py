@@ -136,8 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://ldent.online'
+    'https://ldent.online', 'http://localhost'
 ]
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = f"{BASE_DIR}/static/"
@@ -164,7 +165,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Или настроить разрешенные домены
 CORS_ALLOWED_ORIGINS = [
     'http://ldent.online',
-    'https://ldent.online'
+    'https://ldent.online',
+    'http://localhost'
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Движок сеансов (может быть 'db', 'cache' и другие)

@@ -4,6 +4,7 @@
 <link type="text/css" rel="stylesheet" href="{{ static('css/appointmenting.css') }}">
 
 <script>
+
     let selectedSpecialistId = {{specialist_id}};
     let selectedServiceIds = {{service_id}};
     let selectedDate = '{{date}}';
@@ -18,6 +19,14 @@
         selectedServiceIds = [];
     }
 
+    let isEditDate = false;
+    let order_id = -1;
+
+    {% if is_edit_date %}
+    isEditDate = true;
+    order_id = {{order_id}};
+    {% endif %}
+
     console.log(`spec: ${selectedSpecialistId}; services: ${selectedServiceIds}; date: ${selectedDate}`);
 </script>
 
@@ -29,14 +38,27 @@
 
 {% block content  %}
 
-
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <div class="container">
     <br>
-    <div class="switch-buttons">
-        <button id="specialist-button" class="switch-button">Выбрать врача</button>
-        <button id="service-button" class="switch-button">Выбрать услугу</button>
-        <button id="date-button" class="switch-button">Выбрать время</button>
-    </div>
+
+    {% if is_edit_date %}
+        <div class="switch-buttons" style="display: none">
+            <button id="specialist-button" class="switch-button">Выбрать врача</button>
+            <button id="service-button" class="switch-button">Выбрать услугу</button>
+            <button id="date-button" class="switch-button">Выбрать время</button>
+        </div>
+
+    {% else %}
+
+        <div class="switch-buttons">
+            <button id="specialist-button" class="switch-button">Выбрать врача</button>
+            <button id="service-button" class="switch-button">Выбрать услугу</button>
+            <button id="date-button" class="switch-button">Выбрать время</button>
+        </div>
+
+    {% endif %}
+
 
     <script type="text/javascript" src="{{ static('js/appointmenting.js') }}"></script>
 

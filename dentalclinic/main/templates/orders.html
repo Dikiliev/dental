@@ -62,11 +62,13 @@
 
             <p>Статус: <span class="hover-text {% if order.order_status == 5 %}error{% endif %}" id="status-{{ order.id }}">{{order.get_order_status_display()}}</span></p>
 
-            {% if user.role == 2 %}
+<!--            {% if user.role == 2 %}-->
+
+<!--            <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>-->
+
+<!--            {% endif %}-->
 
             <div id="switcher-{{ order.id }}" data-status="{{ order.order_status }}" class="order-status-switcher switch-buttons disabled"></div>
-
-            {% endif %}
         </div>
         <hr>
 

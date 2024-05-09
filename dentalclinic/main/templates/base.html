@@ -28,6 +28,15 @@
     <script type="text/javascript" src="{{ static('js/base_script.js') }}"></script>
     <script type="text/javascript" src="{{ static('js/head.js') }}" defer></script>
 
+    <script>
+        let role = 1;
+        let is_authenticated = '{{user.is_authenticated}}' == 'True';
+
+        if (is_authenticated){
+            role = {{user.role}};
+        }
+    </script>
+
 
     {% block head  %}
 

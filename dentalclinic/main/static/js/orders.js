@@ -25,6 +25,10 @@ const finishButtonHtml  = (switcher) => button('finish', 'Завершить', (
     set_order_status(switcher, 4);
 })
 
+const transferButtonHtml = (switcher) => button('transfer', 'Перенести', () =>{
+    redirectEditUrl(switcher.id.replace('switcher-', ''));
+})
+
 initOrders();
 
 
@@ -45,19 +49,29 @@ function initOrder(switcher){
 function refreshSwitcher(switcher){
     switcher.innerHTML = '';
 
-    switch (+switcher.dataset.status){
-        case 1:
+    if (role != 1){
+        switch (+switcher.dataset.status){
+            case 1:
+                switcher.appendChild(cancelButtonHtml(switcher));
+                switcher.appendChild(acceptButtonHtml(switcher));
+                break;
+            case 2:
+                switcher.appendChild(cancelButtonHtml(switcher));
+                switcher.appendChild(processButtonHtml(switcher));
+                break;
+            case 3:
+                switcher.appendChild(cancelButtonHtml(switcher));
+                switcher.appendChild(finishButtonHtml(switcher));
+                break;
+        }
+    }
+    else{
+        if (+switcher.dataset.status != 5){
             switcher.appendChild(cancelButtonHtml(switcher));
-            switcher.appendChild(acceptButtonHtml(switcher));
-            break;
-        case 2:
-            switcher.appendChild(cancelButtonHtml(switcher));
-            switcher.appendChild(processButtonHtml(switcher));
-            break;
-        case 3:
-            switcher.appendChild(cancelButtonHtml(switcher));
-            switcher.appendChild(finishButtonHtml(switcher));
-            break;
+            switcher.appendChild(transferButtonHtml(switcher));
+        }
+
+
     }
 
     switcher.classList.toggle('disabled', !switcher.innerHTML)
@@ -102,4 +116,10 @@ function set_state(order_id, value){
 function getCsrfToken() {
     const csrfTokenElement = document.getElementsByName('csrfmiddlewaretoken')[0];
     return csrfTokenElement ? csrfTokenElement.value : '';
+}
+
+
+function redirectEditUrl(order_id){
+    let resultUrl = `/edit_date/${order_id}`
+    window.location.assign(resultUrl);
 }
