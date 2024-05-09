@@ -145,7 +145,12 @@ function generateTimesElement(time, extraClass){
 function generateTimes(){
     timesGrid.innerHTML = '';
 
-    const response = fetchData('get_times/15/2024/3/7');
+    const date = [selectDate.getFullYear(), selectDate.getMonth() + 1, selectDate.getDate()].join('/');
+    const specialist = selectedSpecialistId;
+
+    console.log(date, selectedSpecialistId);
+
+    const response = fetchData(`get_times/${selectedSpecialistId}/${date}`);
     response.then(result => {
 
         for (const time of result.times){

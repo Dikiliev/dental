@@ -213,7 +213,7 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
     data = dict()
     data['message'] = 'success'
 
-    dt = datetime(year, month, day)
+    dt = datetime(year, month, day).date()
     specialist = User.objects.get(pk=specialist_id)
     appointments = filter_appointments(dt, specialist.get_appointment_by_list())
     start_time = specialist.profile.start_time
