@@ -47,3 +47,14 @@ form{
 .big-icon{
     width: 100%;
 }
+
+.two-buttons-grid{
+    width: 100%;
+
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column: 2;
+
+}

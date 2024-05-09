@@ -27,6 +27,8 @@ urlpatterns = [
     path(f'completion_appointment/{SPECIALIST}<specialist_id>{SERVICE}<intlist:service_ids>{DATE}<dt>', views.completion_appointment,
          name='completion-appointment'),
 
+    path(f'appointmented/<int:order_id>/<int:rewrited>', views.appointmented, name='completion-appointment'),
+
     path(f'edit_date/<int:order_id>', views.edit_date,
          name='edit-date'),
 

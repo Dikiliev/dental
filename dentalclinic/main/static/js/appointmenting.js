@@ -130,6 +130,7 @@ function set_order_date(order_id, value){
     }
 
     console.log(data);
+    console.log(is_authenticated);
 
     fetch(BASE_URL + `set_order_date/`, {
         method: "POST",
@@ -143,11 +144,13 @@ function set_order_date(order_id, value){
         .then(data => {
             console.log(data);
 
+
+
             if (is_authenticated){
                 window.location.assign('/orders');
             }
             else{
-                window.location.assign('/');
+                window.location.assign(`/appointmented/${order_id}/1`);
             }
 
         })

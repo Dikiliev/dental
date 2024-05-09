@@ -32,7 +32,7 @@
         let is_authenticated = '{{user.is_authenticated}}' == 'True';
 
         if (is_authenticated){
-            role = {{user.role}};
+            role = '{{user.role}}';
         }
     </script>
 

@@ -132,11 +132,40 @@ def completion_appointment(request: HttpRequest, specialist_id: int, service_ids
 
             appointment_service.save()
 
-        return render(request, 'completion_appointment.html', data)
+        # return render(request, 'completion_appointment.html', data)
+        return redirect(f'/appointmented/{appointment.id}/0')
 
     if request.method == 'POST':
         return post(specialist_id, service_ids, dt)
     return get(specialist_id, service_ids, dt)
+
+
+def appointmented(request: HttpRequest, order_id: int, rewrited: int):
+    data = create_base_data(request)
+
+    order = Appointment.objects.get(id=order_id)
+
+    specialist = order.dentist
+    services = order.appointment_services.all()
+    services = [service.service for service in services]
+
+    data['order'] = order
+    data['specialist'] = specialist
+    data['services'] = services
+    data['total'] = sum([service.price for service in services])
+
+    dt = order.date_time
+    data['date'] = {
+        'date': dt,
+        'day': dt.day,
+        'week': get_week(dt),
+        'month': get_month(dt),
+        'time': dt.strftime('%H:%M')
+    }
+
+    data['rewrited'] = rewrited
+
+    return render(request, 'ordered.html', data)
 
 
 def edit_date(request: HttpRequest, order_id: int):
@@ -226,7 +255,6 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
     return JsonResponse(data)
 
 
-@login_required()
 def set_order_status(request: HttpRequest):
     try:
         data = json.loads(request.body)
