@@ -150,7 +150,13 @@ function generateTimes(){
 
     console.log(date, selectedSpecialistId);
 
-    const response = fetchData(`get_times/${selectedSpecialistId}/${date}`);
+    let sId = selectedSpecialistId
+    if (sId == -1){
+        sId = 0
+    }
+
+
+    const response = fetchData(`get_times/${sId}/${date}`);
     response.then(result => {
 
         for (const time of result.times){

@@ -1,11 +1,5 @@
+from datetime import datetime
 
-def calculte(a):
-    for b in range(1, 11):
-        print(f'{a} x {b} = {a * b}')
+start_time = datetime.time(9, 0, 0)
 
-
-for a in range(1, 10):
-    print(f'Таблица {a}')
-    calculte(a)
-    print()
-
+print(start_time)

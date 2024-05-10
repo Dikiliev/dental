@@ -243,10 +243,19 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
     data['message'] = 'success'
 
     dt = datetime(year, month, day).date()
-    specialist = User.objects.get(pk=specialist_id)
-    appointments = filter_appointments(dt, specialist.get_appointment_by_list())
-    start_time = specialist.profile.start_time
-    end_time = specialist.profile.end_time
+
+    specialist = None
+    if specialist_id != 0:
+        specialist = User.objects.get(pk=specialist_id)
+
+    start_time = time(9, 0, 0)
+    end_time = time(18, 0, 0)
+
+    appointments = []
+    if specialist:
+        start_time = specialist.profile.start_time
+        end_time = specialist.profile.end_time
+        appointments = filter_appointments(dt, specialist.get_appointment_by_list())
 
     times = get_free_times_in_day(dt, appointments, start_time, end_time)
 
