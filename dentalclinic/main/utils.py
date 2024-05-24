@@ -2,15 +2,6 @@ from datetime import datetime, date, time, timedelta
 
 
 def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: time) -> (date, [time]):
-    def round_datetime(value: datetime):
-        result = datetime(value.year, value.month, value.day, value.hour, 0, 0)
-        if value.minute >= 30:
-            result += timedelta(hours=1)
-        else:
-            result += timedelta(minutes=30)
-
-        return result
-
     def get_correct_next_time(value: date):
         if value == date.today():
             return 'сегодня'
@@ -31,6 +22,11 @@ def get_free_times(appointments: [(datetime, int)], start_time: time, end_time: 
 def get_free_times_in_day(d: date, appointments: [(datetime, int)], start_time: time, end_time: time):
     result = []
 
+    dt = round_datetime(datetime.now())
+
+    if dt == date.today():
+        start_time = max(start_time, dt.time())
+
     d = datetime.combine(d, start_time)
     while d.time() < end_time:
         result.append(d.time())
@@ -43,6 +39,17 @@ def get_free_times_in_day(d: date, appointments: [(datetime, int)], start_time: 
         result = list(filter(lambda x: x >= end_appointment or x <= start_appointment, result))
 
     return result
+
+
+def round_datetime(value: datetime):
+    result = datetime(value.year, value.month, value.day, value.hour, 0, 0)
+    if value.minute >= 30:
+        result += timedelta(hours=1)
+    else:
+        result += timedelta(minutes=30)
+
+    return result
+
 
 
 def get_month(date: datetime):

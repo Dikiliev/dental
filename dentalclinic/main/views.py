@@ -251,6 +251,8 @@ def get_times(request: HttpRequest, specialist_id, year: int, month: int, day: i
     start_time = time(9, 0, 0)
     end_time = time(18, 0, 0)
 
+    print(dt)
+
     appointments = []
     if specialist:
         start_time = specialist.profile.start_time
