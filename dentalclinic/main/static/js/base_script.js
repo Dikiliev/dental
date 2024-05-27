@@ -1,5 +1,5 @@
-// BASE_URL = 'https://ldent.online/'
-BASE_URL = 'http://localhost:8000/'
+BASE_URL = 'https://ldent.online/'
+//BASE_URL = 'http://localhost:8000/'
 
 
 function toDate(valueStr){
