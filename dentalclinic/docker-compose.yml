@@ -18,8 +18,8 @@ services:
       - "443:443"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./static:/srv/HealthAndActivity/static
-      - ./media:/srv/HealthAndActivity/media
+      - ./static:/srv/dental/dentalclinic/static
+      - ./media:/srv/dental/dentalclinic/media
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     depends_on:
